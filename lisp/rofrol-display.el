@@ -1,12 +1,17 @@
 (set-frame-font "Source Code Pro-13" nil t)
 (setq ring-bell-function 'ignore)
 (setq inhibit-startup-message t)
+(setq inhibit-startup-screen t
+      initial-buffer-choice  nil)
+(setq inhibit-splash-screen t
+      inhibit-startup-message t
+      initial-scratch-message "")
 
 ;;; http://ergoemacs.org/emacs/emacs_line_number_mode.html
 ;;; https://emacs.stackexchange.com/questions/36747/disable-line-numbers-in-helm-buffers-emacs-26
 (when (version<= "26.0.50" emacs-version )
-  ;;; enable in all programming modes
-  (add-hook 'prog-mode-hook #'display-line-numbers-mode))
+      ;;; enable in all programming modes
+      (add-hook 'prog-mode-hook #'display-line-numbers-mode))
 
 (column-number-mode t)
 
@@ -18,8 +23,23 @@
 (global-set-key [f11] 'toggle-frame-fullscreen)
 
 (require 'treemacs)
-(treemacs)
+
+;;; running treemacs on emacs-startup-hook,
+;;; because otherwise sidebar is on the left
+(add-hook 'emacs-startup-hook
+    (lambda ()
+        (treemacs)
+        ;;; set focus to file
+        ;;; http://emacsredux.com/blog/2013/04/28/switch-to-previous-buffer/
+        (switch-to-buffer (other-buffer (current-buffer) 1))
+    ) t)
+
 (global-set-key [f8] 'treemacs)
+
+(with-eval-after-load "treemacs"
+    (setq treemacs-is-never-other-window nil
+          treemacs-position 'right
+          treemacs-follow-mode t))
 
 ;; https://stackoverflow.com/questions/3631220/fix-to-get-smooth-scrolling-in-emacs/27102429#27102429
 ;; scroll one line at a time (less "jumpy" than defaults)
@@ -28,7 +48,7 @@
 (setq-default smooth-scroll-margin 0)
 (setq scroll-step 1
       scroll-margin 3
-      scroll-preserve-screen-position t
+      scroll-preserve-screen-position nil
       scroll-conservatively 100000)
 
 (provide 'rofrol-display)
