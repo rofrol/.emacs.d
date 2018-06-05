@@ -3,9 +3,10 @@
 (setq inhibit-startup-message t)
 
 ;;; http://ergoemacs.org/emacs/emacs_line_number_mode.html
+;;; https://emacs.stackexchange.com/questions/36747/disable-line-numbers-in-helm-buffers-emacs-26
 (when (version<= "26.0.50" emacs-version )
   ;;; enable in all programming modes
-  (add-hook 'prog-mode-hook 'global-display-line-numbers-mode))
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode))
 
 (column-number-mode t)
 
