@@ -2,6 +2,9 @@
 (cask-initialize)
 (require 'pallet)
 (pallet-mode t)
+;;; re-defining package--save-selected-packages to do nothing
+;;; https://www.reddit.com/r/emacs/comments/53zpv9/how_do_i_get_emacs_to_stop_adding_custom_fields/d7yt2yu/
+(defun package--save-selected-packages (&rest opt) nil)
 
 ;;; Modularization based on
 ;;; https://github.com/tonini/emacs.d
