@@ -11,4 +11,7 @@
 ;;; https://stackoverflow.com/questions/2627289/how-to-replace-a-region-in-emacs-with-yank-buffer-contents
 (delete-selection-mode t)
 
+;;; http://ergoemacs.org/emacs/emacs_insert_brackets_by_pair.html
+(electric-pair-mode t)
+
 (provide 'rofrol-system)
