@@ -8,4 +8,7 @@
 (set-locale-environment "en.UTF-8")
 (prefer-coding-system 'utf-8)
 
+;;; https://stackoverflow.com/questions/2627289/how-to-replace-a-region-in-emacs-with-yank-buffer-contents
+(delete-selection-mode t)
+
 (provide 'rofrol-system)
