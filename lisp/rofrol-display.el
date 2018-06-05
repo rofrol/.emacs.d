@@ -11,8 +11,13 @@
 
 ;;; https://emacs.stackexchange.com/questions/2999/how-to-maximize-my-emacs-frame-on-start-up/3017#3017
 ;;; https://www.emacswiki.org/emacs/FullScreen
+;;; faster startup without resizing: emacs -fs
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
-(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+;;(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
 (global-set-key [f11] 'toggle-frame-fullscreen)
+
+(require 'treemacs)
+(treemacs)
+(global-set-key [f8] 'treemacs)
 
 (provide 'rofrol-display)
