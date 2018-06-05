@@ -9,4 +9,10 @@
 
 (column-number-mode t)
 
+;;; https://emacs.stackexchange.com/questions/2999/how-to-maximize-my-emacs-frame-on-start-up/3017#3017
+;;; https://www.emacswiki.org/emacs/FullScreen
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+(global-set-key [f11] 'toggle-frame-fullscreen)
+
 (provide 'rofrol-display)
