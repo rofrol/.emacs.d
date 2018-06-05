@@ -51,4 +51,6 @@
       scroll-preserve-screen-position nil
       scroll-conservatively 100000)
 
+(show-paren-mode t)
+
 (provide 'rofrol-display)
