@@ -20,4 +20,14 @@
 (treemacs)
 (global-set-key [f8] 'treemacs)
 
+;; https://stackoverflow.com/questions/3631220/fix-to-get-smooth-scrolling-in-emacs/27102429#27102429
+;; scroll one line at a time (less "jumpy" than defaults)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
+(setq mouse-wheel-progressive-speed nil)            ; don't accelerate scrolling
+(setq-default smooth-scroll-margin 0)
+(setq scroll-step 1
+      scroll-margin 3
+      scroll-preserve-screen-position t
+      scroll-conservatively 100000)
+
 (provide 'rofrol-display)
