@@ -42,7 +42,28 @@
 
       (add-hook 'elm-mode-hook 'init-elm-mode)))
 
+;; ripgrep
+;; https://github.com/seagle0128/.emacs.d/blob/master/lisp/init-projectile.el
+;; https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-projectile.el
+;; https://emacs.stackexchange.com/questions/16497/how-to-exclude-files-from-projectile/29200#29200
 (use-package projectile
   :straight t
+  :init (add-hook 'after-init-hook #'projectile-mode)
   :config
-  (projectile-mode))
+  (let ((command
+           (cond
+            ((executable-find "rg")
+             (let ((rg-cmd ""))
+               (dolist (dir projectile-globally-ignored-directories)
+                 (setq rg-cmd (format "%s --glob '!%s'" rg-cmd dir)))
+               (concat "rg -0 --files --color=never --hidden" rg-cmd))))))
+    (setq projectile-generic-command command))
+
+    ;; Faster searching on Windows
+    (when (eq system-type 'windows-nt)
+      (when (or (executable-find "rg") (executable-find "pt") (executable-find "ag"))
+        (setq projectile-indexing-method 'alien)
+        (setq projectile-enable-caching nil))
+
+      ;; FIXME: too slow while getting submodule files on Windows
+      (setq projectile-git-submodule-command "")))
