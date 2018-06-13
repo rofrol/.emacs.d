@@ -25,7 +25,7 @@
   :config
   (global-company-mode))
 
-; required for company-elm
+;; required for company-elm
 ;;(add-hook 'after-init-hook 'global-company-mode)
 
 (use-package elm-mode
