@@ -3,3 +3,6 @@ elpa
 auto-save-list
 .cache
 straight
+projectile-bookmarks.eld
+projectile.cache
+server

@@ -41,3 +41,8 @@
 	(setq elm-format-on-save t))
 
       (add-hook 'elm-mode-hook 'init-elm-mode)))
+
+(use-package projectile
+  :straight t
+  :config
+  (projectile-mode))
