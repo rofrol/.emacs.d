@@ -11,7 +11,10 @@
 ;;; https://emacs.stackexchange.com/questions/36747/disable-line-numbers-in-helm-buffers-emacs-26
 (when (version<= "26.0.50" emacs-version )
       ;;; enable in all programming modes
-      (add-hook 'prog-mode-hook #'display-line-numbers-mode))
+      (defun init-line-numbers-mode ()
+        (display-line-numbers-mode)
+	(setq display-line-numbers-width-start t))
+      (add-hook 'prog-mode-hook 'init-line-numbers-mode))
 
 (column-number-mode t)
 
