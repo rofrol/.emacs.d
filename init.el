@@ -1,10 +1,16 @@
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
-(require 'pallet)
-(pallet-mode t)
-;;; re-defining package--save-selected-packages to do nothing
-;;; https://www.reddit.com/r/emacs/comments/53zpv9/how_do_i_get_emacs_to_stop_adding_custom_fields/d7yt2yu/
-(defun package--save-selected-packages (&rest opt) nil)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 4))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
 
 ;;; Modularization based on
 ;;; https://github.com/tonini/emacs.d
@@ -14,11 +20,24 @@
 (require 'rofrol-display)
 (require 'rofrol-utils)
 
-(require 'company)
-;;; required for company-elm
-(add-hook 'after-init-hook 'global-company-mode)
+(use-package company
+  :straight t
+  :config
+  (global-company-mode))
 
-(require 'elm-mode)
-(with-eval-after-load 'elm-mode
-     (add-to-list 'company-backends 'company-elm)
-     (setq elm-format-on-save t))
+; required for company-elm
+;;(add-hook 'after-init-hook 'global-company-mode)
+
+(use-package elm-mode
+    :mode ("\\.elm\\'" . elm-mode)
+    :straight t
+    :init
+    (progn
+      (defun init-elm-mode ()
+        "Disable electric-indent-mode and let indentation cycling feature work"
+        (if (fboundp 'electric-indent-local-mode)
+            (electric-indent-local-mode -1))
+        (add-to-list 'company-backends 'company-elm)
+	(setq elm-format-on-save t))
+
+      (add-hook 'elm-mode-hook 'init-elm-mode)))

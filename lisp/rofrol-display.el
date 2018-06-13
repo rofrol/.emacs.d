@@ -22,25 +22,6 @@
 ;;(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
 (global-set-key [f11] 'toggle-frame-fullscreen)
 
-(require 'treemacs)
-
-;;; running treemacs on emacs-startup-hook,
-;;; because otherwise sidebar is on the left
-(add-hook 'emacs-startup-hook
-    (lambda ()
-        (treemacs)
-        ;;; set focus to file
-        ;;; http://emacsredux.com/blog/2013/04/28/switch-to-previous-buffer/
-        (switch-to-buffer (other-buffer (current-buffer) 1))
-    ) t)
-
-(global-set-key [f8] 'treemacs)
-
-(with-eval-after-load "treemacs"
-    (setq treemacs-is-never-other-window nil
-          treemacs-position 'right
-          treemacs-follow-mode t))
-
 ;; https://stackoverflow.com/questions/3631220/fix-to-get-smooth-scrolling-in-emacs/27102429#27102429
 ;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time
@@ -52,5 +33,25 @@
       scroll-conservatively 100000)
 
 (show-paren-mode t)
+
+
+;;(require 'treemacs)
+
+(use-package treemacs
+    :straight t
+    :config
+        (setq treemacs-is-never-other-window nil
+              treemacs-position 'right
+              treemacs-follow-mode t)
+    :init
+    (progn
+      (defun init-treemacs ()
+        (treemacs)
+        ;;; set focus to file
+        ;;; http://emacsredux.com/blog/2013/04/28/switch-to-previous-buffer/
+        (switch-to-buffer (other-buffer (current-buffer) 1))
+        (global-set-key [f8] 'treemacs))
+
+      (add-hook 'emacs-startup-hook 'init-treemacs)))
 
 (provide 'rofrol-display)
