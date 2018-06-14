@@ -28,7 +28,12 @@
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;;(add-to-list 'initial-frame-alist '(fullscreen . maximized))
 ;;(add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
-(global-set-key [f11] 'toggle-frame-fullscreen)
+
+(defun toggle-fullscreen-maximize ()
+  (interactive)
+  (toggle-frame-maximized)
+  (toggle-frame-fullscreen))
+(global-set-key [f11] 'toggle-fullscreen-maximize)
 
 ;; https://stackoverflow.com/questions/3631220/fix-to-get-smooth-scrolling-in-emacs/27102429#27102429
 ;; scroll one line at a time (less "jumpy" than defaults)
