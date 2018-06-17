@@ -92,3 +92,12 @@
   :delight
   :init
   (ivy-mode 1))
+
+;; On Windows, set HOME to USERPROFILE and create shortcut whith "Start in" set to `%HOME`.
+;; https://stackoverflow.com/questions/60464/changing-the-default-folder-in-emacs/60482#60482
+;; http://ergoemacs.org/emacs/emacs_mswin.html
+;; set for every find-file https://stackoverflow.com/questions/6464003/emacs-find-file-default-path/6465677#6465677
+;; inhibiting and setting below didn't work.
+;;(cd (getenv "HOME")) ;; doesn't work
+;;(setq default-directory "~/") ;; doesn't work
+;;(add-hook 'find-file-hook #'(lambda () (setq default-directory "~/"))) ;; doesn't work
