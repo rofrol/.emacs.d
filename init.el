@@ -79,3 +79,16 @@
 (when (eq system-type 'windows-nt)
   (add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
   (setenv "PATH" (mapconcat #'identity exec-path path-separator)))
+
+
+;; needed for counsel-find-file to be active etc.
+(use-package counsel
+   :defer t
+   :straight t)
+
+;; Technically part of swiper, but we'll configure it here.
+(use-package ivy
+  :straight t
+  :delight
+  :init
+  (ivy-mode 1))
