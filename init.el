@@ -73,3 +73,9 @@
 ;; https://stackoverflow.com/questions/1212426/how-do-i-close-an-automatically-opened-window-in-emacs
 ;; https://stackoverflow.com/questions/11106377/is-there-a-way-to-undo-split-window-below-in-emacs
 (setq help-window-select t)
+
+;; so that gnu find is on PATH before windows find
+;; https://emacs.stackexchange.com/questions/27326/gui-emacs-sets-the-exec-path-only-from-windows-environment-variable-but-not-from
+(when (eq system-type 'windows-nt)
+  (add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
+  (setenv "PATH" (mapconcat #'identity exec-path path-separator)))
