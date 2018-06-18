@@ -132,7 +132,7 @@
           (while (not (file-directory-p parent-directory))
               (sleep-for 1)))
           ;; https://stackoverflow.com/questions/2592095/how-do-i-create-an-empty-file-in-emacs/11990694#11990694
-          (shell-command (concat "touch " (buffer-file-name))))
+          (shell-command (concat "touch " (shell-quote-argument (buffer-file-name)))))
           ;;(set-buffer-modified-p t)) ;; maybe will need it with save after open touch dos not work
 
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
