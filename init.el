@@ -66,7 +66,14 @@
         (setq projectile-enable-caching nil))
 
       ;; FIXME: too slow while getting submodule files on Windows
-      (setq projectile-git-submodule-command "")))
+      (setq projectile-git-submodule-command ""))
+      ;; https://emacs.stackexchange.com/questions/10465/turn-on-projectile-mode-only-for-files-in-actual-projects
+      (setq projectile-mode-line
+      '(:eval (if (projectile-project-p)
+                  (format " Projectile[%s]"
+                          (projectile-project-name))
+                "")))
+   )
 
 ;; auto-switch to help buffer, then press q to close
 ;; https://stackoverflow.com/questions/36506141/emacs-dispatch-help-window-from-original-buffer
