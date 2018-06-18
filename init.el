@@ -107,6 +107,8 @@
       (setq ivy-use-virtual-buffers t)
       ;; https://emacs.stackexchange.com/questions/31947/distinguish-ido-ivys-virtual-buffers-with-equal-names-using-directory
       (setq ivy-virtual-abbreviate 'full)
+      ;; there is also counsel-projectile
+      (setq projectile-completion-system 'ivy)
   )
 
 ;; On Windows, set HOME to USERPROFILE and create shortcut whith "Start in" set to `%HOME`.
@@ -143,9 +145,3 @@
           ;;(set-buffer-modified-p t)) ;; maybe will need it with save after open touch dos not work
 
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
-
-(use-package counsel-projectile
-    :defer t
-    :straight t
-    :init
-    (counsel-projectile-mode))
