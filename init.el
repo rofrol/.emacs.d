@@ -117,6 +117,7 @@
 
 ;; http://iqbalansari.me/blog/2014/12/07/automatically-create-parent-directories-on-visiting-a-new-file-in-emacs/
 ;;   - https://github.com/magnars/.emacs.d/blob/master/settings/sane-defaults.el#L135
+;; https://emacs.stackexchange.com/questions/9951/how-to-set-the-coding-system-for-new-files-with-specific-extensions/9953
 ;; nice solutions https://superuser.com/questions/131538/can-i-create-directories-that-dont-exist-while-creating-a-new-file-in-emacs
 ;; touch https://stackoverflow.com/questions/8989540/touch-current-file-in-emacs
 ;; no good answer here https://emacs.stackexchange.com/questions/425/opening-a-new-file-whose-parent-directory-doesnt-exist-yet
