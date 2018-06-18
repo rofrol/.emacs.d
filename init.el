@@ -101,3 +101,28 @@
 ;;(cd (getenv "HOME")) ;; doesn't work
 ;;(setq default-directory "~/") ;; doesn't work
 ;;(add-hook 'find-file-hook #'(lambda () (setq default-directory "~/"))) ;; doesn't work
+
+;; do I need this?
+;;(setq-default buffer-file-coding-system 'utf-8-unix)
+
+;; http://iqbalansari.me/blog/2014/12/07/automatically-create-parent-directories-on-visiting-a-new-file-in-emacs/
+;;   - https://github.com/magnars/.emacs.d/blob/master/settings/sane-defaults.el#L135
+;; nice solutions https://superuser.com/questions/131538/can-i-create-directories-that-dont-exist-while-creating-a-new-file-in-emacs
+;; touch https://stackoverflow.com/questions/8989540/touch-current-file-in-emacs
+;; no good answer here https://emacs.stackexchange.com/questions/425/opening-a-new-file-whose-parent-directory-doesnt-exist-yet
+;; alternative: create dirs before save https://stackoverflow.com/questions/6830671/how-to-make-emacs-create-intermediate-dirs-when-saving-a-file/6830894#6830894
+;; with dired https://stackoverflow.com/questions/2592095/how-do-i-create-an-empty-file-in-emacs/18885461#18885461
+;; another https://www.reddit.com/r/emacs/comments/4azsbg/easy_way_to_create_an_empty_new_file_in_emacs/d15w5eh/
+(defun my-create-non-existent-directory ()
+      (let ((parent-directory (file-name-directory buffer-file-name)))
+        (when (and (not (file-exists-p parent-directory))
+                   (y-or-n-p (format "Directory `%s' does not exist! Create it?" parent-directory)))
+          (make-directory parent-directory t))
+          ;; wait until directory is created
+          (while (not (file-directory-p parent-directory))
+              (sleep-for 1)))
+          ;; https://stackoverflow.com/questions/2592095/how-do-i-create-an-empty-file-in-emacs/11990694#11990694
+          (shell-command (concat "touch " (buffer-file-name))))
+          ;;(set-buffer-modified-p t)) ;; maybe will need it with save after open touch dos not work
+
+(add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
