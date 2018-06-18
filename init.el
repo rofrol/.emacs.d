@@ -82,9 +82,13 @@
 
 
 ;; needed for counsel-find-file to be active etc.
+;; http://pragmaticemacs.com/emacs/counsel-yank-pop-with-a-tweak/OB
 (use-package counsel
-   :defer t
-   :straight t)
+   :straight t
+   :bind
+       (("M-y" . counsel-yank-pop)
+       :map ivy-minibuffer-map
+           ("M-y" . ivy-next-line)))
 
 ;; Technically part of swiper, but we'll configure it here.
 (use-package ivy
