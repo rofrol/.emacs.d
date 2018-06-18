@@ -38,7 +38,7 @@
         (if (fboundp 'electric-indent-local-mode)
             (electric-indent-local-mode -1))
         (add-to-list 'company-backends 'company-elm)
-	(setq elm-format-on-save t))
+        (setq elm-format-on-save t))
 
       (add-hook 'elm-mode-hook 'init-elm-mode)))
 
@@ -80,6 +80,12 @@
   (add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
   (setenv "PATH" (mapconcat #'identity exec-path path-separator)))
 
+;; do I need this?
+;; https://www.reddit.com/r/emacs/comments/4z8gpe/using_bash_on_windows_for_mx_shell/d6wmc88/
+;;(setenv  "PATH" (concat
+;;     "C:/Program Files/Git/usr/bin" ";"
+;;     (getenv "PATH")
+;;     ))
 
 ;; needed for counsel-find-file to be active etc.
 ;; http://pragmaticemacs.com/emacs/counsel-yank-pop-with-a-tweak/OB
