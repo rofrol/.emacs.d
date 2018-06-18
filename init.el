@@ -101,7 +101,13 @@
   :straight t
   :delight
   :init
-  (ivy-mode 1))
+      (ivy-mode 1)
+  :config
+      ;; show recently opened files when ivy-switch-buffer
+      (setq ivy-use-virtual-buffers t)
+      ;; https://emacs.stackexchange.com/questions/31947/distinguish-ido-ivys-virtual-buffers-with-equal-names-using-directory
+      (setq ivy-virtual-abbreviate 'full)
+  )
 
 ;; On Windows, set HOME to USERPROFILE and create shortcut whith "Start in" set to `%HOME`.
 ;; https://stackoverflow.com/questions/60464/changing-the-default-folder-in-emacs/60482#60482
