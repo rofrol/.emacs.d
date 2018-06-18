@@ -152,3 +152,14 @@
           ;;(set-buffer-modified-p t)) ;; maybe will need it with save after open touch dos not work
 
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
+
+;; https://emacs.stackexchange.com/questions/22266/backspace-without-adding-to-kill-ring
+;; https://stackoverflow.com/questions/6133799/delete-a-word-without-adding-it-to-the-kill-ring-in-emacs
+;; http://ergoemacs.org/emacs/emacs_kill-ring.html
+(defun backward-delete-word (arg)
+  "Delete characters backward until encountering the beginning of a word.
+With argument ARG, do this that many times."
+  (interactive "p")
+  (delete-region (point) (progn (backward-word arg) (point))))
+
+(global-set-key [M-backspace] 'backward-delete-word)
