@@ -214,3 +214,10 @@ With argument ARG, do this that many times."
 (global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
 
 (save-place-mode 1)
+
+;; https://emacs.stackexchange.com/questions/13941/move-selected-lines-up-and-down
+;; https://stackoverflow.com/questions/2423834/move-line-region-up-and-down-in-emacs
+(use-package drag-stuff
+  :straight t
+  :bind (("M-<up>" . 'drag-stuff-up)
+         ("M-<down>" . 'drag-stuff-down)))
