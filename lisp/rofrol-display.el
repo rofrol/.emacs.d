@@ -88,4 +88,7 @@
 (global-set-key (kbd "<f6>") 'toggle-menu-bar-mode-from-frame)
 (global-set-key (kbd "<f7>") 'toggle-tool-bar-mode-from-frame)
 
+;; https://emacs.stackexchange.com/questions/392/how-to-change-the-cursor-type-and-color
+(setq-default cursor-type 'bar)
+
 (provide 'rofrol-display)
