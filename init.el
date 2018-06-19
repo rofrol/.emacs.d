@@ -211,6 +211,7 @@ With argument ARG, do this that many times."
 
 (global-set-key [M-backspace] 'backward-delete-word)
 
+;; also http://ergoemacs.org/emacs/rename_file_pattern.html
 (global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
 
 (save-place-mode 1)
