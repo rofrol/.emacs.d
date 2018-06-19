@@ -42,6 +42,11 @@
 
       (add-hook 'elm-mode-hook 'init-elm-mode)))
 
+;; for projectile-ripgrep
+(use-package ripgrep
+    :straight t
+    :defer t)
+
 ;; ripgrep
 ;; https://github.com/seagle0128/.emacs.d/blob/master/lisp/init-projectile.el
 ;; https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-projectile.el
@@ -75,6 +80,39 @@
                 "")))
    )
 
+(setq projectile-switch-project-action 'projectile-run-eshell)
+
+;; https://emacs.stackexchange.com/questions/22049/git-bash-in-emacs-on-windows
+(prefer-coding-system 'utf-8)
+(setq-default buffer-file-coding-system 'utf-8-unix)
+
+;; https://emacs.stackexchange.com/questions/22049/git-bash-in-emacs-on-windows
+;;(setq shell-file-name "C:\\Program Files\\Git\\bin\\bash.exe")
+;;(setq explicit-shell-file-name shell-file-name)
+;;(setq explicit-bash.exe-args '("--login" "-i"))
+;;(setq explicit-bash-args '("--login" "-i"))
+;;(setq explicit-bash-args '("-i" "-c"))
+;;(setq shell-command-switch "-ic")
+;;(setq comint-prompt-read-only t)
+
+;; https://www.masteringemacs.org/article/running-shells-in-emacs-overview
+(setq explicit-shell-file-name "C:\\Program Files\\Git\\bin\\bash.exe")
+(setq shell-file-name "bash")
+(setq explicit-bash.exe-args '("--noediting" "--login" "-i"))
+(setenv "SHELL" shell-file-name)
+(add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
+
+
+;; https://emacs.stackexchange.com/questions/2883/any-way-to-make-prompts-and-previous-output-uneditable-in-shell-term-mode
+;; https://github.com/michalrus/dotfiles/blob/c4421e361400c4184ea90a021254766372a1f301/.emacs.d/init.d/040-terminal.el.symlink#L26-L48
+(setq comint-prompt-read-only t)
+
+(defun my-comint-preoutput-turn-buffer-read-only (text)
+  (propertize text 'read-only t))
+
+(add-hook 'comint-preoutput-filter-functions 'my-comint-preoutput-turn-buffer-read-only)
+
+
 ;; auto-switch to help buffer, then press q to close
 ;; https://stackoverflow.com/questions/36506141/emacs-dispatch-help-window-from-original-buffer
 ;; https://stackoverflow.com/questions/1212426/how-do-i-close-an-automatically-opened-window-in-emacs
@@ -83,16 +121,18 @@
 
 ;; so that gnu find is on PATH before windows find
 ;; https://emacs.stackexchange.com/questions/27326/gui-emacs-sets-the-exec-path-only-from-windows-environment-variable-but-not-from
-(when (eq system-type 'windows-nt)
-  (add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
-  (setenv "PATH" (mapconcat #'identity exec-path path-separator)))
+;; maybe this conflicts with setting bash for shell
+;; https://emacs.stackexchange.com/questions/31515/garbage-prepended-to-path
+;;(when (eq system-type 'windows-nt)
+;;  (add-to-list 'exec-path "C:/Program Files/Git/usr/bin")
+;;  (setenv "PATH" (mapconcat #'identity exec-path path-separator)))
 
-;; do I need this?
+;; needed to have sh in eshell
 ;; https://www.reddit.com/r/emacs/comments/4z8gpe/using_bash_on_windows_for_mx_shell/d6wmc88/
-;;(setenv  "PATH" (concat
-;;     "C:/Program Files/Git/usr/bin" ";"
-;;     (getenv "PATH")
-;;     ))
+(setenv  "PATH" (concat
+     "C:/Program Files/Git/usr/bin" ";"
+     (getenv "PATH")
+     ))
 
 ;; needed for counsel-find-file to be active etc.
 ;; http://pragmaticemacs.com/emacs/counsel-yank-pop-with-a-tweak/OB
@@ -156,6 +196,7 @@
 ;; https://emacs.stackexchange.com/questions/22266/backspace-without-adding-to-kill-ring
 ;; https://stackoverflow.com/questions/6133799/delete-a-word-without-adding-it-to-the-kill-ring-in-emacs
 ;; http://ergoemacs.org/emacs/emacs_kill-ring.html
+;; https://stackoverflow.com/questions/16915712/implementation-of-a-kill-word-or-line-function-in-emacs
 (defun backward-delete-word (arg)
   "Delete characters backward until encountering the beginning of a word.
 With argument ARG, do this that many times."
