@@ -95,12 +95,15 @@
 ;;(setq shell-command-switch "-ic")
 ;;(setq comint-prompt-read-only t)
 
+;; I'm disabling below becuase of problems such as:
+;; C-c in elm-mode: /bin/bash: elm-make: command not found
+;; /bin/bash: rg: command not found
 ;; https://www.masteringemacs.org/article/running-shells-in-emacs-overview
-(setq explicit-shell-file-name "C:\\Program Files\\Git\\bin\\bash.exe")
-(setq shell-file-name "bash")
-(setq explicit-bash.exe-args '("--noediting" "--login" "-i"))
-(setenv "SHELL" shell-file-name)
-(add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
+;;(setq explicit-shell-file-name "C:\\Program Files\\Git\\bin\\bash.exe")
+;;(setq shell-file-name "bash")
+;;(setq explicit-bash.exe-args '("--noediting" "--login" "-i"))
+;;(setenv "SHELL" shell-file-name)
+;;(add-hook 'comint-output-filter-functions 'comint-strip-ctrl-m)
 
 
 ;; https://emacs.stackexchange.com/questions/2883/any-way-to-make-prompts-and-previous-output-uneditable-in-shell-term-mode
