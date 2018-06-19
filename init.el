@@ -210,3 +210,5 @@ With argument ARG, do this that many times."
   (delete-region (point) (progn (backward-word arg) (point))))
 
 (global-set-key [M-backspace] 'backward-delete-word)
+
+(global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
