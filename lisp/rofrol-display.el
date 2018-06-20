@@ -93,12 +93,17 @@
 
 
 ;; https://emacs.stackexchange.com/questions/35432/how-to-set-projectile-project-name-as-frame-title?rq=1
-(setq frame-title-format
-    '(""
-      "%b"
-      (:eval
-       (let ((project-name (projectile-project-name)))
-         (unless (string= "-" project-name)
-           (format " in [%s]" project-name))))))
+;; (setq frame-title-format
+;;     '(""
+;;       "%b"
+;;       (:eval
+;;        (let ((project-name (projectile-project-name)))
+;;          (unless (string= "-" project-name)
+;;            (format " in [%s]" project-name))))))
+
+;; https://emacs.stackexchange.com/questions/35432/how-to-set-projectile-project-name-as-frame-title/42122#42122
+(use-package nameframe-projectile
+  :straight t
+  :config (nameframe-projectile-mode t))
 
 (provide 'rofrol-display)
