@@ -60,24 +60,24 @@
   :straight t
   :init (add-hook 'after-init-hook #'projectile-mode)
   :config
-;; setting this and use-package ripgrep, causes that C-c p s r and `M-x counsel-rg` does not work 
-;;    (let ((command
-;;           (cond
-;;            ((executable-find "rg")
-;;             (let ((rg-cmd ""))
-;;               (dolist (dir projectile-globally-ignored-directories)
-;;                 (setq rg-cmd (format "%s --glob '!%s'" rg-cmd dir)))
-;;               (concat "rg -0 --files --color=never --hidden" rg-cmd))))))
-;;    (setq projectile-generic-command command))
-;;
-;;    ;; Faster searching on Windows
-;;    (when (eq system-type 'windows-nt)
-;;      (when (or (executable-find "rg") (executable-find "pt") (executable-find "ag"))
-;;        (setq projectile-indexing-method 'alien)
-;;        (setq projectile-enable-caching nil))
-;;
-;;      ;; FIXME: too slow while getting submodule files on Windows
-;;      (setq projectile-git-submodule-command ""))
+    ;; use rg for find-file
+    (let ((command
+           (cond
+            ((executable-find "rg")
+             (let ((rg-cmd ""))
+               (dolist (dir projectile-globally-ignored-directories)
+                 (setq rg-cmd (format "%s --glob '!%s'" rg-cmd dir)))
+               (concat "rg -0 --files --color=never --hidden" rg-cmd))))))
+    (setq projectile-generic-command command))
+
+    ;; Faster searching on Windows
+    (when (eq system-type 'windows-nt)
+      (when (or (executable-find "rg") (executable-find "pt") (executable-find "ag"))
+        (setq projectile-indexing-method 'alien)
+        (setq projectile-enable-caching nil))
+
+      ;; FIXME: too slow while getting submodule files on Windows
+      (setq projectile-git-submodule-command ""))
       ;; commenting out, because I have it in frame title atm
       ;; https://emacs.stackexchange.com/questions/10465/turn-on-projectile-mode-only-for-files-in-actual-projects
       ;;(setq projectile-mode-line
@@ -258,3 +258,30 @@ With argument ARG, do this that many times."
 ;;  (ad-set-arg 0 t))
 ;;
 ;;(advice-add 'quit-window :before #'quit-window--kill)
+
+;; https://emacs.stackexchange.com/questions/7126/run-command-in-new-frame
+;; https://emacs.stackexchange.com/questions/42049/open-new-frame-when-switching-between-projects-in-projectile
+;; https://github.com/bbatsov/projectile/issues/490
+;;(defun run-command-in-new-frame (prefixarg command-name)
+;;  (interactive (list current-prefix-arg (read-extended-command)))
+;;  (let ((command (intern-soft command-name)))
+;;    (unless command
+;;      (error "%s is not a valid command name" command-name))
+;;    (select-frame (make-frame))
+;;    (let ((prefix-arg prefixarg))
+;;      (command-execute command))))
+;;
+;;(defun projectile-switch-project--new-frame (orig-fun &rest args)
+;;  (select-frame (make-frame))
+;;  (print args)
+;;  (apply orig-fun args))
+;;
+;;;;(advice-add 'projectile-switch-project-by-name :before #'projectile-switch-project--new-frame )
+;;
+;;(defun amd/projectile-switch-project (old-function &rest arguments)
+;;  (message "old-function %s" old-function)
+;;  (message ">>>>>>\narguments %s" arguments)
+;;  (select-frame (make-frame))
+;;  (apply old-function arguments))
+;;  
+;;(advice-add 'projectile-switch-project-by-name :around #'amd/projectile-switch-project)
