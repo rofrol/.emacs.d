@@ -238,6 +238,7 @@ With argument ARG, do this that many times."
 ;; also http://ergoemacs.org/emacs/rename_file_pattern.html
 (global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
 
+;; alternative https://github.com/bbatsov/super-save
 (save-place-mode 1)
 
 ;; https://emacs.stackexchange.com/questions/13941/move-selected-lines-up-and-down
