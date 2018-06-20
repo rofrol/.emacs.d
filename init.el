@@ -45,10 +45,12 @@
 
       (add-hook 'elm-mode-hook 'init-elm-mode)))
 
+;; not sure if I need this, when counsel-rg shows results live
+;; and to have list in buffer and I can press `C-c C-o` which is `ivy-occur`
 ;; for projectile-ripgrep
-(use-package ripgrep
-    :straight t
-    :defer t)
+;;(use-package ripgrep
+;;    :straight t
+;;    :defer t)
 
 ;; ripgrep
 ;; https://github.com/seagle0128/.emacs.d/blob/master/lisp/init-projectile.el
@@ -58,29 +60,31 @@
   :straight t
   :init (add-hook 'after-init-hook #'projectile-mode)
   :config
-  (let ((command
-           (cond
-            ((executable-find "rg")
-             (let ((rg-cmd ""))
-               (dolist (dir projectile-globally-ignored-directories)
-                 (setq rg-cmd (format "%s --glob '!%s'" rg-cmd dir)))
-               (concat "rg -0 --files --color=never --hidden" rg-cmd))))))
-    (setq projectile-generic-command command))
-
-    ;; Faster searching on Windows
-    (when (eq system-type 'windows-nt)
-      (when (or (executable-find "rg") (executable-find "pt") (executable-find "ag"))
-        (setq projectile-indexing-method 'alien)
-        (setq projectile-enable-caching nil))
-
-      ;; FIXME: too slow while getting submodule files on Windows
-      (setq projectile-git-submodule-command ""))
+;; setting this and use-package ripgrep, causes that C-c p s r and `M-x counsel-rg` does not work 
+;;    (let ((command
+;;           (cond
+;;            ((executable-find "rg")
+;;             (let ((rg-cmd ""))
+;;               (dolist (dir projectile-globally-ignored-directories)
+;;                 (setq rg-cmd (format "%s --glob '!%s'" rg-cmd dir)))
+;;               (concat "rg -0 --files --color=never --hidden" rg-cmd))))))
+;;    (setq projectile-generic-command command))
+;;
+;;    ;; Faster searching on Windows
+;;    (when (eq system-type 'windows-nt)
+;;      (when (or (executable-find "rg") (executable-find "pt") (executable-find "ag"))
+;;        (setq projectile-indexing-method 'alien)
+;;        (setq projectile-enable-caching nil))
+;;
+;;      ;; FIXME: too slow while getting submodule files on Windows
+;;      (setq projectile-git-submodule-command ""))
+      ;; commenting out, because I have it in frame title atm
       ;; https://emacs.stackexchange.com/questions/10465/turn-on-projectile-mode-only-for-files-in-actual-projects
-      (setq projectile-mode-line
-      '(:eval (if (projectile-project-p)
-                  (format " Projectile[%s]"
-                          (projectile-project-name))
-                "")))
+      ;;(setq projectile-mode-line
+      ;;'(:eval (if (projectile-project-p)
+      ;;            (format " Projectile[%s]"
+      ;;                    (projectile-project-name))
+      ;;          "")))
    )
 
 
@@ -242,3 +246,15 @@ With argument ARG, do this that many times."
   :straight t
   :bind (("M-<up>" . 'drag-stuff-up)
          ("M-<down>" . 'drag-stuff-down)))
+
+;; https://superuser.com/questions/397806/emacs-modify-quit-window-to-delete-buffer-not-just-bury-it
+(defadvice quit-window (before quit-window-always-kill)
+  "When running `quit-window', always kill the buffer."
+  (ad-set-arg 0 t))
+(ad-activate 'quit-window)
+
+;;(defun quit-window--kill (&optional ARG PRED) 
+;;  "Kill window when quit-window"
+;;  (ad-set-arg 0 t))
+;;
+;;(advice-add 'quit-window :before #'quit-window--kill)
