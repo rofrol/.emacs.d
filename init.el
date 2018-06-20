@@ -83,12 +83,27 @@
                 "")))
    )
 
+
+;; https://emacs.stackexchange.com/questions/35432/how-to-set-projectile-project-name-as-frame-title
+;; https://github.com/syl20bnr/spacemacs/issues/2139
+;; Set my-projectile-project-name to projectile-project-name,
+;; so that later I can also set projectile project name when in *Messages*
 (defun my-projectile-switch-project-action ()
+  (set-frame-parameter nil 'my-projectile-project-name projectile-project-name)
   (projectile-run-eshell)
-  (projectile-find-file)
-)
+  (projectile-find-file))
 
 (setq projectile-switch-project-action 'my-projectile-switch-project-action)
+
+(setq frame-title-format
+    '(""
+      "%b"
+      (:eval
+       (let ((project-name (projectile-project-name)))
+           (if (not (string= "-" project-name))
+             (format " in [%s]" project-name)
+             (format " in [%s]" (frame-parameter nil 'my-projectile-project-name)))))))
+
 
 ;; https://emacs.stackexchange.com/questions/22049/git-bash-in-emacs-on-windows
 (prefer-coding-system 'utf-8)

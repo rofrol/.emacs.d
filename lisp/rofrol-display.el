@@ -13,7 +13,7 @@
       ;;; enable in all programming modes
       (defun init-line-numbers-mode ()
         (display-line-numbers-mode)
-	(setq display-line-numbers-width-start t))
+    (setq display-line-numbers-width-start t))
       (add-hook 'prog-mode-hook 'init-line-numbers-mode))
 
 (column-number-mode t)
@@ -90,20 +90,5 @@
 
 ;; https://emacs.stackexchange.com/questions/392/how-to-change-the-cursor-type-and-color
 (setq-default cursor-type 'bar)
-
-
-;; https://emacs.stackexchange.com/questions/35432/how-to-set-projectile-project-name-as-frame-title?rq=1
-;; (setq frame-title-format
-;;     '(""
-;;       "%b"
-;;       (:eval
-;;        (let ((project-name (projectile-project-name)))
-;;          (unless (string= "-" project-name)
-;;            (format " in [%s]" project-name))))))
-
-;; https://emacs.stackexchange.com/questions/35432/how-to-set-projectile-project-name-as-frame-title/42122#42122
-(use-package nameframe-projectile
-  :straight t
-  :config (nameframe-projectile-mode t))
 
 (provide 'rofrol-display)
