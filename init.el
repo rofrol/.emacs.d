@@ -83,7 +83,12 @@
                 "")))
    )
 
-(setq projectile-switch-project-action 'projectile-run-eshell)
+(defun my-projectile-switch-project-action ()
+  (projectile-run-eshell)
+  (projectile-find-file)
+)
+
+(setq projectile-switch-project-action 'my-projectile-switch-project-action)
 
 ;; https://emacs.stackexchange.com/questions/22049/git-bash-in-emacs-on-windows
 (prefer-coding-system 'utf-8)
