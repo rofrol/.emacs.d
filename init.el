@@ -1,3 +1,7 @@
+;; https://github.com/lewang/flx
+(setq gc-cons-threshold 200000000)
+
+
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 4))
