@@ -292,3 +292,7 @@ With argument ARG, do this that many times."
 ;;(advice-add 'projectile-switch-project-by-name :around #'amd/projectile-switch-project)
 
 (setq confirm-kill-emacs 'y-or-n-p)
+
+;; Ctrl click a link, also disables buffer menu
+;; https://www.emacswiki.org/emacs/BrowseUrl
+(global-set-key [C-down-mouse-1] 'browse-url-at-mouse)
