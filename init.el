@@ -293,6 +293,35 @@ With argument ARG, do this that many times."
 
 (setq confirm-kill-emacs 'y-or-n-p)
 
-;; Ctrl click a link, also disables buffer menu
+;; Ctrl click a link, also disables mouse-buffer-menu
 ;; https://www.emacswiki.org/emacs/BrowseUrl
 (global-set-key [C-down-mouse-1] 'browse-url-at-mouse)
+
+;; https://superuser.com/questions/521223/shift-click-to-extend-marked-region
+;; also disables mouse-appearance-menu, but I get S-mouse-1 undefined, so ignoring it
+(define-key global-map (kbd "<S-down-mouse-1>") 'mouse-save-then-kill)
+(define-key global-map (kbd "<S-mouse-1>") 'ignore)
+
+;; this appears not needed
+;; https://stackoverflow.com/questions/11176853/understanding-emacs-cua-mode-for-shift-click-selection
+;; shift + click select region
+;(define-key global-map (kbd "<S-down-mouse-1>") 'ignore) ; turn off font dialog
+;(define-key global-map (kbd "<S-mouse-1>") 'mouse-set-point)
+;(put 'mouse-set-point 'CUA 'move)
+
+;; https://stackoverflow.com/questions/13986605/how-to-make-emacs-mouse-drag-not-highlight-or-set-mark
+
+;; https://emacs.stackexchange.com/questions/7244/enable-emacs-column-selection-using-mouse
+(defun mouse-start-rectangle (start-event)
+  (interactive "e")
+  (deactivate-mark)
+  (mouse-set-point start-event)
+  (rectangle-mark-mode +1)
+  (let ((drag-event))
+    (track-mouse
+      (while (progn
+               (setq drag-event (read-event))
+               (mouse-movement-p drag-event))
+        (mouse-set-point drag-event)))))
+
+(global-set-key (kbd "C-S-<down-mouse-1>") #'mouse-start-rectangle)
