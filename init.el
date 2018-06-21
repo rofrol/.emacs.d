@@ -290,3 +290,5 @@ With argument ARG, do this that many times."
 ;;  (apply old-function arguments))
 ;;  
 ;;(advice-add 'projectile-switch-project-by-name :around #'amd/projectile-switch-project)
+
+(setq confirm-kill-emacs 'y-or-n-p)
