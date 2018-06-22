@@ -335,3 +335,13 @@ With argument ARG, do this that many times."
         (mouse-set-point drag-event)))))
 
 (global-set-key (kbd "C-S-<down-mouse-1>") #'mouse-start-rectangle)
+
+
+;; https://jblevins.org/projects/markdown-mode/
+(use-package markdown-mode
+  :straight t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
