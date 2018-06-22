@@ -298,7 +298,9 @@ With argument ARG, do this that many times."
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Hyperlinking.html
 ;; this is better than browse-url-at-mouse, because only hyperlinks can be clicked, not sth like some.text
 ;; https://emacs.stackexchange.com/questions/30521/rendering-urls-as-clickable-links/30522#30522
-;; there is also goto-address-node https://emacs.stackexchange.com/questions/27094/how-to-make-hyperlinks-clickable-in-markdown-mode/27100#27100
+;; there is also goto-address-mode https://emacs.stackexchange.com/questions/27094/how-to-make-hyperlinks-clickable-in-markdown-mode/27100#27100
+;; which will make hyperlinks clickable
+;; which can be activated for certain modes `(add-hook 'mh-show-mode-hook 'goto-address)` or `M-x goto-address`
 (global-set-key [C-down-mouse-1] 'ffap-at-mouse)
 (define-key global-map (kbd "<C-mouse-1>") 'ignore)
 
