@@ -1,4 +1,19 @@
-(set-frame-font "Source Code Pro-13" nil t)
+;; Needs restart
+;; https://stackoverflow.com/questions/28428382/how-to-manage-fonts-in-emacs
+;; https://emacs.stackexchange.com/questions/2501/how-can-i-set-default-font-in-emacs
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Standard-Faces.html
+;; https://stackoverflow.com/questions/534307/set-emacs-defaut-font-face-per-buffer-mode
+;; `M-x describe-face` will get information like `Face: markdown-pre-face`
+;; https://yoo2080.wordpress.com/2013/05/30/monospace-font-in-tables-and-source-code-blocks-in-org-mode-proportional-font-in-other-parts/
+;; https://superuser.com/questions/422968/how-to-find-out-current-font-used-in-my-emacs
+;;(set-frame-font "Source Code Pro-13" nil t)
+(set-face-attribute 'default nil
+                    :family "Source Code Pro"
+                    :height 130
+                    :weight 'normal
+                    :width 'normal)
+(copy-face 'default 'fixed-pitch)
+
 (setq ring-bell-function 'ignore)
 (setq inhibit-startup-message t)
 (setq inhibit-startup-screen t
