@@ -374,3 +374,8 @@ With argument ARG, do this that many times."
 ;;                 (buffer-name))))
 ;;  (t t)))
 ;;(add-to-list 'kill-buffer-query-functions 'ask-before-killing-buffer)
+
+;; .dir-locals.el are save to init file as custom,
+;; so let's specify custom file and gitignore it
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file t)
