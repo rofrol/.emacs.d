@@ -357,3 +357,20 @@ With argument ARG, do this that many times."
   :config
   ;; http://www.bartuka.com/emacs/2018/02/02/bartuka's-emacs-config.html
   (add-hook 'prog-mode-hook 'goto-address-prog-mode))
+
+;; https://www.emacswiki.org/emacs/KillBufferUnconditionally
+;; https://stackoverflow.com/questions/6467002/how-to-kill-buffer-in-emacs-without-answering-confirmation
+;; https://superuser.com/questions/632750/how-can-i-eliminate-prompts-and-dialog-boxes-in-emacs-and-enable-auto-saving
+;; https://emacs.stackexchange.com/questions/3245/kill-buffer-prompt-with-option-to-diff-the-changes
+;; https://emacs.stackexchange.com/questions/3330/how-to-reopen-just-killed-buffer-like-c-s-t-in-firefox-browser
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+
+;; looks like below is not needed, but in the link there is example to expand it to *scratch* etc.
+;; http://amitp.blogspot.com/2007/03/emacs-dont-kill-unsaved-buffers.html
+;;(defun ask-before-killing-buffer ()
+;; (cond
+;;  ((and buffer-file-name (buffer-modified-p))
+;;   (y-or-n-p (format "Buffer %s modified; kill anyway? "
+;;                 (buffer-name))))
+;;  (t t)))
+;;(add-to-list 'kill-buffer-query-functions 'ask-before-killing-buffer)
