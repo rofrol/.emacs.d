@@ -340,10 +340,20 @@ With argument ARG, do this that many times."
 
 
 ;; https://jblevins.org/projects/markdown-mode/
+;; either `C-c C-x C-l` or `M-x markdown-toggle-url-hiding` or add `(markdown-toggle-url-hiding t)` to your markdown-mode-hook
 (use-package markdown-mode
   :straight t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :init (setq markdown-command "multimarkdown")
+  :config
+      (add-hook 'markdown-mode-hook 'markdown-toggle-url-hiding))
+
+(use-package goto-addr
+  :init
+  (setq goto-address-mail-face 'link)
+  :config
+  ;; http://www.bartuka.com/emacs/2018/02/02/bartuka's-emacs-config.html
+  (add-hook 'prog-mode-hook 'goto-address-prog-mode))
