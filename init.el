@@ -45,7 +45,8 @@
         (if (fboundp 'electric-indent-local-mode)
             (electric-indent-local-mode -1))
         (add-to-list 'company-backends 'company-elm)
-        (setq elm-format-on-save t))
+        (setq elm-format-on-save t)
+        (setq elm-tags-on-save t))
 
       (add-hook 'elm-mode-hook 'init-elm-mode)))
 
@@ -293,9 +294,18 @@ With argument ARG, do this that many times."
 
 (setq confirm-kill-emacs 'y-or-n-p)
 
+
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Hyperlinking.html
+;; this is better than browse-url-at-mouse, because only hyperlinks can be clicked, not sth like some.text
+;; https://emacs.stackexchange.com/questions/30521/rendering-urls-as-clickable-links/30522#30522
+;; there is also goto-address-node https://emacs.stackexchange.com/questions/27094/how-to-make-hyperlinks-clickable-in-markdown-mode/27100#27100
+(global-set-key [C-down-mouse-1] 'ffap-at-mouse)
+(define-key global-map (kbd "<C-mouse-1>") 'ignore)
+
 ;; Ctrl click a link, also disables mouse-buffer-menu
 ;; https://www.emacswiki.org/emacs/BrowseUrl
-(global-set-key [C-down-mouse-1] 'browse-url-at-mouse)
+;;(global-set-key [C-down-mouse-1] 'browse-url-at-mouse)
+
 
 ;; https://superuser.com/questions/521223/shift-click-to-extend-marked-region
 ;; also disables mouse-appearance-menu, but I get S-mouse-1 undefined, so ignoring it
