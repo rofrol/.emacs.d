@@ -172,6 +172,7 @@
 ;; needed for counsel-find-file to be active etc.
 ;; http://pragmaticemacs.com/emacs/counsel-yank-pop-with-a-tweak/OB
 (use-package counsel
+   :after ivy
    :straight t
    :bind
        (("M-y" . counsel-yank-pop)
