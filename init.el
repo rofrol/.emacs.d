@@ -27,6 +27,10 @@
 (require 'rofrol-display)
 (require 'rofrol-utils)
 
+
+(use-package f
+  :straight t)
+
 (use-package company
   :straight t
   :config
@@ -83,13 +87,16 @@
 
       ;; FIXME: too slow while getting submodule files on Windows
       (setq projectile-git-submodule-command ""))
-      ;; commenting out, because I have it in frame title atm
       ;; https://emacs.stackexchange.com/questions/10465/turn-on-projectile-mode-only-for-files-in-actual-projects
-      ;;(setq projectile-mode-line
-      ;;'(:eval (if (projectile-project-p)
-      ;;            (format " Projectile[%s]"
-      ;;                    (projectile-project-name))
-      ;;          "")))
+      ;; https://gist.github.com/hlissner/f80647f7a390bfe78a805a40b9c28e9b
+      ;; https://emacs.stackexchange.com/questions/38759/projectile-buffer-names-with-project-relative-filenames
+      (setq projectile-mode-line
+      '(:eval (if (projectile-project-p)
+                  (format " Projectile[%s]"
+                          ;;(projectile-project-name))
+                          (concat (projectile-project-name) "/"
+                              (f-dirname (f-relative buffer-file-name (projectile-project-root)))))
+                "")))
    )
 
 
