@@ -115,10 +115,12 @@
     '(""
       "%b"
       (:eval
-       (let ((project-name (projectile-project-name)))
-           (if (not (string= "-" project-name))
-             (format " in [%s]" project-name)
-             (format " in [%s]" (frame-parameter nil 'my-projectile-project-name)))))))
+          (if (projectile-project-p)
+              (let ((project-name (projectile-project-name)))
+                  (if (not (string= "-" project-name))
+                    (format " in [%s]" project-name)
+                    (format " in [%s]" (frame-parameter nil 'my-projectile-project-name))))
+	      ""))))
 
 
 ;; https://emacs.stackexchange.com/questions/22049/git-bash-in-emacs-on-windows
