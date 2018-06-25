@@ -160,11 +160,12 @@
 (add-hook 'comint-preoutput-filter-functions 'my-comint-preoutput-turn-buffer-read-only)
 
 
+;; No need as now C-g closes side window
 ;; auto-switch to help buffer, then press q to close
 ;; https://stackoverflow.com/questions/36506141/emacs-dispatch-help-window-from-original-buffer
 ;; https://stackoverflow.com/questions/1212426/how-do-i-close-an-automatically-opened-window-in-emacs
 ;; https://stackoverflow.com/questions/11106377/is-there-a-way-to-undo-split-window-below-in-emacs
-(setq help-window-select t)
+;;(setq help-window-select t)
 
 ;; so that gnu find is on PATH before windows find
 ;; https://emacs.stackexchange.com/questions/27326/gui-emacs-sets-the-exec-path-only-from-windows-environment-variable-but-not-from
