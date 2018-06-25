@@ -434,7 +434,7 @@ With argument ARG, do this that many times."
   (interactive)
   (kill-new (with-output-to-string (princ (call-interactively 'eval-expression)))))
 
-(global-set-key (kbd "C-;") 'c5-eval-to-kill-ring)
+(global-set-key (kbd "C-;") 'comment-line)
 
 
 ;; https://stackoverflow.com/questions/1072662/by-emacs-how-to-join-two-lines-into-one/17682863#17682863
