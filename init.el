@@ -16,7 +16,6 @@
 
 (straight-use-package 'use-package)
 
-;;
 (setq load-prefer-newer t)
 
 ;; Modularization based on
@@ -27,9 +26,13 @@
 (require 'rofrol-display)
 (require 'rofrol-utils)
 
+(use-package validate
+  :straight t
+  :demand t)
 
 (use-package f
-  :straight t)
+  :straight t
+  :demand t)
 
 (use-package company
   :straight t
@@ -389,3 +392,37 @@ With argument ARG, do this that many times."
 ;; so let's specify custom file and gitignore it
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file t)
+
+;; Configure `display-buffer' behaviour for some special buffers.
+;; https://github.com/lunaryorn/old-emacs-configuration/blob/master/init.el
+;; https://www.reddit.com/r/emacs/comments/7au3hj/how_do_you_manage_your_emacs_windows_and_stay_sane/dpgp0fm/
+;; https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Displaying-Buffers-in-Side-Windows.html#Displaying-Buffers-in-Side-Windows
+;; http://endlessparentheses.com/validate-el-schema-validation-for-emacs-lisp.html
+;; Also Emacs Winner-Mode https://youtu.be/T_voB16QxW0
+(validate-setq
+ display-buffer-alist
+ `(
+   ;; Put REPLs and error lists into the bottom side window
+   (,(rx bos
+         (or "*Help"                         ; Help buffers
+             "*Warnings*"                    ; Emacs warnings
+             "*Compile-Log*"                 ; Emacs byte compiler log
+             "*compilation"                  ; Compilation buffers
+             "*Flycheck errors*"             ; Flycheck error list
+             "*shell"                        ; Shell window
+             "*sbt"                          ; SBT REPL and compilation buffer
+             "*ensime-update*"               ; Server update from Ensime
+             "*SQL"                          ; SQL REPL
+             "*Cargo"                        ; Cargo process buffers
+             "*elm-make*"                    ; elm-make
+             (and (1+ nonl) " output*")      ; AUCTeX command output
+             ))
+    (display-buffer-reuse-window
+     display-buffer-in-side-window)
+    (side            . bottom)
+    (reusable-frames . visible)
+    (window-height   . 0.33))
+   ;; Let `display-buffer' reuse visible frames for all buffers.  This must
+   ;; be the last entry in `display-buffer-alist', because it overrides any
+   ;; later entry with more specific actions.
+   ("." nil (reusable-frames . visible))))
