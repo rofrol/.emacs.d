@@ -446,3 +446,13 @@ With argument ARG, do this that many times."
   (insert " "))
 
 (global-set-key (kbd "M-^") 'join-lines)
+
+;; https://gist.github.com/meeiw/3082383
+(defun yank-projectile-relative-path-with-line-number ()
+  "Yank current projectile relative path and line number as '<path/to/file>:<line-number>'."
+  (interactive)
+  (let ((path-with-line-number
+         (concat (f-relative buffer-file-name (projectile-project-root)) ":" (number-to-string (line-number-at-pos)))))
+    (kill-new path-with-line-number)
+    (message (concat path-with-line-number " copied to clipboard"))))
+
