@@ -405,7 +405,7 @@ With argument ARG, do this that many times."
    ;; Put REPLs and error lists into the bottom side window
    (,(rx bos
          (or "*Help"                         ; Help buffers
-             "*Warnings*"                    ; Emacs warnings
+             "*Warning*"                     ; Emacs warnings
              "*Compile-Log*"                 ; Emacs byte compiler log
              "*compilation"                  ; Compilation buffers
              "*Flycheck errors*"             ; Flycheck error list
