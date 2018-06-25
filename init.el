@@ -464,3 +464,14 @@ With argument ARG, do this that many times."
 ;; https://emacs.stackexchange.com/questions/19861/how-to-unhighlight-symbol-highlighted-with-highlight-symbol-at-point
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Highlight-Interactively.html
 (global-hi-lock-mode 1)
+
+
+;; https://github.com/syl20bnr/spacemacs/issues/1424
+(defun lunaryorn-quit-bottom-side-windows ()
+    "Quit side windows of the current frame."
+    (interactive)
+    (dolist (window (window-at-side-list))
+      (when (not (string-match ".*helm.*" (buffer-name (window-buffer window))))
+        (quit-window nil window))))
+
+(advice-add 'keyboard-quit :before 'lunaryorn-quit-bottom-side-windows)
