@@ -456,3 +456,11 @@ With argument ARG, do this that many times."
     (kill-new path-with-line-number)
     (message (concat path-with-line-number " copied to clipboard"))))
 
+;; `C-x w .` to highlight-symbol-at-point
+;; `C-u C-x w r' to unhighligh all
+;; `C-x w h` to hightligh-regexp
+;; `C-u C-x w r' to unhighlight-regexp
+;; https://stackoverflow.com/questions/385661/how-to-highlight-all-occurrences-of-a-word-in-an-emacs-buffer
+;; https://emacs.stackexchange.com/questions/19861/how-to-unhighlight-symbol-highlighted-with-highlight-symbol-at-point
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Highlight-Interactively.html
+(global-hi-lock-mode 1)
