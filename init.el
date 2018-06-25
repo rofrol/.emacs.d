@@ -426,3 +426,13 @@ With argument ARG, do this that many times."
    ;; be the last entry in `display-buffer-alist', because it overrides any
    ;; later entry with more specific actions.
    ("." nil (reusable-frames . visible))))
+
+;; https://unix.stackexchange.com/questions/9740/is-there-a-convenient-general-way-to-grab-the-echoed-result-of-a-command-in-em/24287#24287
+;; or just `C-x h` then `M-w`
+;; https://emacs.stackexchange.com/questions/37180/how-copy-content-of-minibuffer-to-kill-ring/37181#37181
+(defun c5-eval-to-kill-ring ()
+  (interactive)
+  (kill-new (with-output-to-string (princ (call-interactively 'eval-expression)))))
+
+(global-set-key (kbd "C-;") 'c5-eval-to-kill-ring)
+
