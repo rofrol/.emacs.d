@@ -436,3 +436,13 @@ With argument ARG, do this that many times."
 
 (global-set-key (kbd "C-;") 'c5-eval-to-kill-ring)
 
+
+;; https://stackoverflow.com/questions/1072662/by-emacs-how-to-join-two-lines-into-one/17682863#17682863
+(defun join-lines (arg)
+  (interactive "p")
+  (end-of-line)
+  (delete-char 1)
+  (delete-horizontal-space)
+  (insert " "))
+
+(global-set-key (kbd "M-^") 'join-lines)
