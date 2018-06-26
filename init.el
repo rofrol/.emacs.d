@@ -428,6 +428,21 @@ With argument ARG, do this that many times."
    ;; later entry with more specific actions.
    ("." nil (reusable-frames . visible))))
 
+
+;; https://github.com/yauhen-l/emacs-config/blob/de3d722e844138e6e2a5f8688a3bbb34427430e1/utils/buffer.el#L69
+;; better than https://github.com/syl20bnr/spacemacs/issues/1424 because does not close main window
+(defun my/quit-bottom-side-windows ()
+  "Quit bottom side windows of the current frame."
+  (interactive)
+  (dolist (window (window-at-side-list nil 'bottom))
+    (when (eq (window-parameter window 'window-side) 'bottom)
+      (delete-window window))))
+
+;; conflicts with undo
+;;(advice-add 'keyboard-quit :before 'lunaryorn-quit-bottom-side-windows)
+(global-set-key (kbd "C-x g") 'my/quit-bottom-side-windows)
+
+
 ;; https://unix.stackexchange.com/questions/9740/is-there-a-convenient-general-way-to-grab-the-echoed-result-of-a-command-in-em/24287#24287
 ;; or just `C-x h` then `M-w`
 ;; https://emacs.stackexchange.com/questions/37180/how-copy-content-of-minibuffer-to-kill-ring/37181#37181
@@ -465,19 +480,6 @@ With argument ARG, do this that many times."
 ;; https://emacs.stackexchange.com/questions/19861/how-to-unhighlight-symbol-highlighted-with-highlight-symbol-at-point
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Highlight-Interactively.html
 (global-hi-lock-mode 1)
-
-
-;; https://github.com/syl20bnr/spacemacs/issues/1424
-(defun lunaryorn-quit-bottom-side-windows ()
-    "Quit side windows of the current frame."
-    (interactive)
-    (dolist (window (window-at-side-list))
-      (when (not (string-match ".*helm.*" (buffer-name (window-buffer window))))
-        (quit-window nil window))))
-
-;; conflicts with undo
-;;(advice-add 'keyboard-quit :before 'lunaryorn-quit-bottom-side-windows)
-(global-set-key (kbd "C-x g") 'lunaryorn-quit-bottom-side-windows)
 
 ;; https://www.reddit.com/r/emacs/comments/5g508b/elisp_binding_digitargument_in_a_sparsetransient/
 (setq diego/vert-window-transient-map
