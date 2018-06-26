@@ -534,4 +534,6 @@ With argument ARG, do this that many times."
   (editorconfig-mode 1))
 
 
-(global-set-key (kbd "RET") 'electric-newline-and-maybe-indent)
+;; Map to C-j to have electric-newline-and-maybe-indent on Enter
+;; https://www.reddit.com/r/emacs/comments/4pxvhk/mj_to_ret_when_typing_a_comment/
+(global-set-key (kbd "RET") (kbd "C-j"))
