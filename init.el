@@ -560,3 +560,9 @@ With argument ARG, do this that many times."
 ;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Controlling-case-sensitivity.html
 ;; https://emacs.stackexchange.com/questions/2819/match-two-spaces-with-incremental-search
 (set-variable 'search-whitespace-regexp nil)
+
+;; enable search case sensitivity
+;; `M-c` to toogle, `C-s` then `M-e` to edit last search and `C-s`
+;; https://stackoverflow.com/questions/22687635/emacs-24-3-case-sensitive-search-fails-with-c-s-c-s-search-again
+;; https://www.emacswiki.org/emacs/CaseFoldSearch
+(setq case-fold-search nil)
