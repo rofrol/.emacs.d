@@ -550,3 +550,13 @@ With argument ARG, do this that many times."
 ;; Map to C-j to have electric-newline-and-maybe-indent on Enter
 ;; https://www.reddit.com/r/emacs/comments/4pxvhk/mj_to_ret_when_typing_a_comment/
 (global-set-key (kbd "RET") (kbd "C-j"))
+
+
+;; matching whitespace literally, toggle with `M-s SPC`
+;; otherwise insert space literally `C-q SPC` or `M-x isearch-toggle-lax-whitespace`
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Lax-Search.html#Lax-Search
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Special-Isearch.html
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Regexp-Search.html
+;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Controlling-case-sensitivity.html
+;; https://emacs.stackexchange.com/questions/2819/match-two-spaces-with-incremental-search
+(set-variable 'search-whitespace-regexp nil)
