@@ -501,3 +501,21 @@ With argument ARG, do this that many times."
     (shrink-window arg))
   (set-transient-map
    diego/vert-window-transient-map))
+
+;; find-file with line number like src/ChartBuilder.elm:1420
+;; https://stackoverflow.com/questions/3139970/open-a-file-at-line-with-filenameline-syntax/46273760#46273760
+(defun find-file--line-number (orig-fun filename &optional wildcards)
+  "Turn files like file.cpp:14 into file.cpp and going to the 14-th line."
+  (save-match-data
+    (let* ((matched (string-match "^\\(.*\\):\\([0-9]+\\):?$" filename))
+           (line-number (and matched
+                             (match-string 2 filename)
+                             (string-to-number (match-string 2 filename))))
+           (filename (if matched (match-string 1 filename) filename)))
+      (apply orig-fun (list filename wildcards))
+      (when line-number
+        ;; goto-line is for interactive use
+        (goto-char (point-min))
+        (forward-line (1- line-number))))))
+
+(advice-add 'find-file :around #'find-file--line-number)
