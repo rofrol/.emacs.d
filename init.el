@@ -475,4 +475,29 @@ With argument ARG, do this that many times."
       (when (not (string-match ".*helm.*" (buffer-name (window-buffer window))))
         (quit-window nil window))))
 
-(advice-add 'keyboard-quit :before 'lunaryorn-quit-bottom-side-windows)
+;; conflicts with undo
+;;(advice-add 'keyboard-quit :before 'lunaryorn-quit-bottom-side-windows)
+(global-set-key (kbd "C-x g") 'lunaryorn-quit-bottom-side-windows)
+
+;; https://www.reddit.com/r/emacs/comments/5g508b/elisp_binding_digitargument_in_a_sparsetransient/
+(setq diego/vert-window-transient-map
+      (let ((map (make-sparse-keymap)))
+        (define-key map (kbd "=") #'diego/vert-enlarge-window)
+        (define-key map (kbd "-") #'diego/vert-shrink-window)
+        map))
+
+(defun diego/vert-enlarge-window (arg)
+  (interactive "P")
+  (if (eq arg nil)
+      (enlarge-window 1)
+    (enlarge-window arg))
+  (set-transient-map
+   diego/vert-window-transient-map))
+
+(defun diego/vert-shrink-window (arg)
+  (interactive "P")
+  (if (eq arg nil)
+      (shrink-window 1)
+    (shrink-window arg))
+  (set-transient-map
+   diego/vert-window-transient-map))
