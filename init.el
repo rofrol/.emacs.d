@@ -525,3 +525,12 @@ With argument ARG, do this that many times."
 
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+
+
+(use-package editorconfig
+  :straight t
+  :config
+  (editorconfig-mode 1))
+
+
+(global-set-key (kbd "RET") 'electric-newline-and-maybe-indent)
