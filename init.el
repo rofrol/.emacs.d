@@ -407,6 +407,7 @@ With argument ARG, do this that many times."
    (,(rx bos
          (or "*Help"                         ; Help buffers
              "*Warning*"                     ; Emacs warnings
+             "*Apropos*"                     ; Apropos
              "*Compile-Log*"                 ; Emacs byte compiler log
              "*compilation"                  ; Compilation buffers
              "*Flycheck errors*"             ; Flycheck error list
