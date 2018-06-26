@@ -205,7 +205,20 @@
       (setq ivy-virtual-abbreviate 'full)
       ;; there is also counsel-projectile
       (setq projectile-completion-system 'ivy)
-  )
+      ;;
+      (setq ivy-count-format "%d/%d "))
+
+;; https://github.com/seagle0128/.emacs.d/blob/f8f026da759f32e2d25bab9b2b4c02b73cbbf5ed/lisp/init-ivy.el#L149
+;; More friendly display transformer for Ivy
+(use-package ivy-rich
+  :straight t
+  :init
+  (setq ivy-virtual-abbreviate 'full
+        ivy-rich-switch-buffer-align-virtual-buffer t)
+  (setq ivy-rich-path-style 'abbrev)
+
+  (ivy-set-display-transformer 'ivy-switch-buffer
+                                 'ivy-rich-switch-buffer-transformer))
 
 ;; On Windows, set HOME to USERPROFILE and create shortcut whith "Start in" set to `%HOME`.
 ;; https://stackoverflow.com/questions/60464/changing-the-default-folder-in-emacs/60482#60482
