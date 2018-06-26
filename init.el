@@ -503,6 +503,7 @@ With argument ARG, do this that many times."
    diego/vert-window-transient-map))
 
 ;; find-file with line number like src/ChartBuilder.elm:1420
+;; use with projectile-find-file
 ;; https://stackoverflow.com/questions/3139970/open-a-file-at-line-with-filenameline-syntax/46273760#46273760
 (defun find-file--line-number (orig-fun filename &optional wildcards)
   "Turn files like file.cpp:14 into file.cpp and going to the 14-th line."
@@ -519,3 +520,6 @@ With argument ARG, do this that many times."
         (forward-line (1- line-number))))))
 
 (advice-add 'find-file :around #'find-file--line-number)
+
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
