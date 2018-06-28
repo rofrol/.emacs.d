@@ -14,7 +14,8 @@
                     :width 'normal)
 (copy-face 'default 'fixed-pitch)
 
-(setq ring-bell-function 'ignore)
+;; Don't let Emacs hurt your ears
+(setq ring-bell-function 'silent)
 (setq inhibit-startup-message t)
 (setq inhibit-startup-screen t
       initial-buffer-choice  nil)
