@@ -576,3 +576,10 @@ With argument ARG, do this that many times."
 ;;       (with-selected-window (posn-window posn)
 ;;         (goto-char (+ (posn-point posn) -1))
 ;;         (redisplay)))))
+
+
+;; https://emacs.stackexchange.com/questions/392/how-to-change-the-cursor-type-and-color
+;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Cursor-Display.html
+;; (setq-default cursor-type 'bar)
+;; (setq-default cursor-type '(bar . 2))
+(setq-default cursor-type 'hollow)
