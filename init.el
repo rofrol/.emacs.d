@@ -583,3 +583,23 @@ With argument ARG, do this that many times."
 ;; (setq-default cursor-type 'bar)
 ;; (setq-default cursor-type '(bar . 2))
 (setq-default cursor-type 'hollow)
+
+
+;; newline-without-break-of-line
+;; https://stackoverflow.com/questions/5898448/how-to-add-a-new-line-without-breaking-the-current-line/41540936#41540936
+;; Insert new line below current line
+;; and move cursor to new line
+;; it will also indent newline
+(global-set-key (kbd "<C-return>") (lambda ()
+                   (interactive)
+                   (end-of-line)
+                   (newline-and-indent)))
+;; Insert new line above current line
+;; and move cursor to previous line (newly inserted line)
+;; it will also indent newline
+;; TODO: right now I am unable to goto previous line, FIXIT
+(global-set-key (kbd "<C-S-return>") (lambda ()
+                       (interactive)
+                       (beginning-of-line)
+                       (newline-and-indent)
+                       (previous-line)))
