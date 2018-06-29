@@ -604,9 +604,9 @@ With argument ARG, do this that many times."
                        (newline-and-indent)
                        (previous-line)))
 
-
 ;; https://stackoverflow.com/questions/2249955/emacs-shift-tab-to-left-shift-the-block/35183657#35183657
-(defun indent-region-custom(numSpaces)
+;; https://stackoverflow.com/questions/11623189/how-to-bind-keys-to-indent-unindent-region-in-emacs
+(defun rofrol/indent-region(numSpaces)
     (progn 
         ; default to start and end of current line
         (setq regionStart (line-beginning-position))
@@ -630,25 +630,22 @@ With argument ARG, do this that many times."
     )
 )
 
-(defun untab-region (N)
+(defun rofrol/indent-lines(&optional N)
     (interactive "p")
-    (indent-region-custom -4)
-)
+    (indent-rigidly (line-beginning-position)
+                    (line-end-position)
+                    (* (or N 1) tab-width)))
 
-(defun tab-region (N)
+(defun rofrol/untab-region (&optional N)
     (interactive "p")
-    (if (active-minibuffer-window)
-        (minibuffer-complete)    ; tab is pressed in minibuffer window -> do completion
-    ; else
-    (if (string= (buffer-name) "*shell*")
-        (comint-dynamic-complete) ; in a shell, use tab completion
-    ; else
-    (if (use-region-p)    ; tab is pressed is any other buffer -> execute with space insertion
-        (indent-region-custom 4) ; region was selected, call indent-region
-        (insert "    ") ; else insert four spaces as expected
-    )))
-)
+    (rofrol/indent-region (* (* (or N 1) tab-width)-1)))
 
-(global-set-key (kbd "C->") 'tab-region)
-(global-set-key (kbd "C-<") 'untab-region)
+(defun  rofrol/tab-region (N)
+    (interactive "p")
+    (if (use-region-p)
+        (rofrol/indent-region (* (or N 1) tab-width)) ; region was selected, call indent-region
+        (rofrol/indent-lines N); else insert spaces as expected
+    ))
 
+(global-set-key (kbd "C->") 'rofrol/tab-region)
+(global-set-key (kbd "C-<") 'rofrol/untab-region)
