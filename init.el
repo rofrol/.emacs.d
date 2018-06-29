@@ -135,7 +135,8 @@
 (defun my-projectile-switch-project-action ()
   (set-frame-parameter nil 'my-projectile-project-name projectile-project-name)
   (projectile-run-eshell)
-  (projectile-find-file))
+  ;; (projectile-find-file)
+  (ivy-switch-buffer))
 
 (setq projectile-switch-project-action 'my-projectile-switch-project-action)
 
@@ -217,6 +218,11 @@
        :map ivy-minibuffer-map
            ("M-y" . ivy-next-line)))
 
+(use-package counsel-projectile
+   :after (counsel projectile)
+   :straight t
+   :defer t)
+
 ;; Technically part of swiper, but we'll configure it here.
 (use-package ivy
   :straight t
@@ -225,7 +231,7 @@
       (ivy-mode 1)
   :config
       ;; show recently opened files when ivy-switch-buffer
-      (setq ivy-use-virtual-buffers t)
+  (setq ivy-use-virtual-buffers t)
       ;; https://emacs.stackexchange.com/questions/31947/distinguish-ido-ivys-virtual-buffers-with-equal-names-using-directory
       (setq ivy-virtual-abbreviate 'full)
       ;; there is also counsel-projectile
@@ -237,13 +243,19 @@
 ;; More friendly display transformer for Ivy
 (use-package ivy-rich
   :straight t
+  :after (ivy counsel-projectile)
   :init
   (setq ivy-virtual-abbreviate 'full
         ivy-rich-switch-buffer-align-virtual-buffer t)
   (setq ivy-rich-path-style 'abbrev)
 
   (ivy-set-display-transformer 'ivy-switch-buffer
-                                 'ivy-rich-switch-buffer-transformer))
+                                 'ivy-rich-switch-buffer-transformer)
+  (setq ivy-virtual-abbreviate 'full
+      ivy-rich-switch-buffer-align-virtual-buffer t)
+  ;; https://github.com/Yevgnen/ivy-rich/issues/2
+  (ivy-set-display-transformer
+   'counsel-projectile-switch-to-buffer 'ivy-rich-switch-buffer-transformer))
 
 ;; On Windows, set HOME to USERPROFILE and create shortcut whith "Start in" set to `%HOME`.
 ;; https://stackoverflow.com/questions/60464/changing-the-default-folder-in-emacs/60482#60482
