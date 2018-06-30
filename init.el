@@ -402,6 +402,10 @@ With argument ARG, do this that many times."
 
 (global-set-key (kbd "C-S-<down-mouse-1>") #'mouse-start-rectangle)
 
+;; show border around zero width space ​ https://news.ycombinator.com/item?id=16754256
+;; to insert: `C-x 8 RET` then search for ZERO WIDTH SPACE
+;; or `C-q 20013 RET'
+(update-glyphless-char-display 'glyphless-char-display-control '((format-control . empty-box) (no-font . hex-code)))
 
 ;; https://jblevins.org/projects/markdown-mode/
 ;; either `C-c C-x C-l` or `M-x markdown-toggle-url-hiding` or add `(markdown-toggle-url-hiding t)` to your markdown-mode-hook
@@ -469,6 +473,7 @@ With argument ARG, do this that many times."
              "*SQL"                          ; SQL REPL
              "*Cargo"                        ; Cargo process buffers
              "*elm-make*"                    ; elm-make
+	     "*Disabled Command*"
              (and (1+ nonl) " output*")      ; AUCTeX command output
              ))
     (display-buffer-reuse-window
