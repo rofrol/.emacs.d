@@ -686,3 +686,39 @@ With argument ARG, do this that many times."
 
 (global-set-key (kbd "C->") 'rofrol/tab-region)
 (global-set-key (kbd "C-<") 'rofrol/untab-region)
+
+
+
+;; https://www.reddit.com/r/emacs/comments/8us8wi/make_inserting_cursor_easier_for_kids/
+(use-package "mouse+"
+  :straight t
+  :config
+    ; Highlight yank position or call `M-x' in echo area.
+    (global-set-key [down-mouse-2]   'mouse-flash-position-or-M-x) ; `mouse-2'
+    ;; Highlight line or `M-:'.
+    (global-set-key [S-down-mouse-2] 'mouse-scan-lines-or-M-:) ; `S-mouse-2'
+    (global-set-key [mode-line C-mouse-1] 'mouse-tear-off-window)
+    (define-key minibuffer-inactive-mode-map [down-mouse-1] nil) ; `mouse-1'
+    (define-key minibuffer-inactive-mode-map [mouse-1] nil))
+
+ (defvar mouse-position-previous-handler
+   (lookup-key special-event-map [mouse-movement]))
+ 
+ (defun mouse-position (ev)
+   (interactive "e")
+   (goto-char (posn-point (event-start ev))))
+ 
+ (defun enable-mouse-position ()
+   (interactive)
+   (setq mouse-position-previous-handler
+         (lookup-key special-event-map [mouse-movement]))
+   (setq track-mouse t)
+   (define-key special-event-map [mouse-movement]
+     'mouse-position))
+
+ (defun disable-mouse-position ()
+   (interactive)
+   (setq track-mouse nil)
+   (define-key special-event-map [mouse-movement]
+     mouse-position-previous-handler)
+   (setq mouse-position-previous-handler nil))
