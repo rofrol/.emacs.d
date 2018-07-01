@@ -57,7 +57,7 @@
 (setq mouse-wheel-progressive-speed nil)            ; don't accelerate scrolling
 (setq-default smooth-scroll-margin 0)
 (setq scroll-step 1
-      scroll-margin 3
+      scroll-margin 0
       scroll-preserve-screen-position nil
       scroll-conservatively 100000)
 
