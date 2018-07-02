@@ -472,7 +472,8 @@ With argument ARG, do this that many times."
              "*ensime-update*"               ; Server update from Ensime
              "*SQL"                          ; SQL REPL
              "*Cargo"                        ; Cargo process buffers
-             "*elm-make*"                    ; elm-make
+             "*elm-make*"
+             "*elm-test*"
 	     "*Disabled Command*"
              (and (1+ nonl) " output*")      ; AUCTeX command output
              ))
