@@ -591,10 +591,10 @@ With argument ARG, do this that many times."
   :config
   (editorconfig-mode 1))
 
-
+;; disabling, because does not work good in elm-mode
 ;; Map to C-j to have electric-newline-and-maybe-indent on Enter
 ;; https://www.reddit.com/r/emacs/comments/4pxvhk/mj_to_ret_when_typing_a_comment/
-(global-set-key (kbd "RET") (kbd "C-j"))
+;; (global-set-key (kbd "RET") (kbd "C-j"))
 
 
 ;; matching whitespace literally, toggle with `M-s SPC`
