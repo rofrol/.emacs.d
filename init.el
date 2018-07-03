@@ -610,7 +610,7 @@ With argument ARG, do this that many times."
 ;; `M-c` to toogle, `C-s` then `M-e` to edit last search and `C-s`
 ;; https://stackoverflow.com/questions/22687635/emacs-24-3-case-sensitive-search-fails-with-c-s-c-s-search-again
 ;; https://www.emacswiki.org/emacs/CaseFoldSearch
-(setq case-fold-search nil)
+(setq-default case-fold-search nil)
 
 ;; https://stackoverflow.com/questions/10018815/registering-click-events-for-emacs-lisp
 ;; (define-key global-map (kbd "<down-mouse-1>")
