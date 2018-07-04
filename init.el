@@ -730,3 +730,9 @@ With argument ARG, do this that many times."
    (define-key special-event-map [mouse-movement]
      mouse-position-previous-handler)
    (setq mouse-position-previous-handler nil))
+
+
+;; remove git branch from modeline
+;; https://emacs.stackexchange.com/questions/10955/customize-vc-mode-appearance-in-mode-line
+(setcdr (assq 'vc-mode mode-line-format)
+        '((:eval (replace-regexp-in-string "^ Git.*$" " " vc-mode))))
