@@ -745,3 +745,32 @@ With argument ARG, do this that many times."
                 (when (file-exists-p newname)
                   newname))))
       ffap-alist)
+
+;; https://gist.github.com/sky-y/3263051
+;; Open the file name being pointed in an other window or dired
+;; reference: http://kouzuka.blogspot.com/2011/02/emacsurlfinder.html
+(defun my-directory-or-file-p (path)
+  "return t if path is a directory,
+return nil if path is a file"
+  (car (file-attributes path)))
+
+(defun my-open-emacs-at-point ()
+  "open the file with opening emacs"
+  (interactive)
+  (require 'ffap)
+  (let ((file (or (ffap-url-at-point)
+                  (ffap-file-at-point))))
+    (unless (stringp file)
+      (error"No file or URL found"))
+    (when (file-exists-p (expand-file-name file))
+      (setq file (expand-file-name file)))
+    (message "Open: %s" file)
+
+    (if (my-directory-or-file-p file)
+      (dired-other-window file)
+      (find-file-other-window file))
+    
+    ))
+
+(global-set-key (kbd "\C-c o") 'my-open-emacs-at-point)
+(global-set-key (kbd "C-M-<mouse-1>") 'my-open-emacs-at-point)
