@@ -774,3 +774,5 @@ return nil if path is a file"
 
 (global-set-key (kbd "\C-c o") 'my-open-emacs-at-point)
 (global-set-key (kbd "C-M-<mouse-1>") 'my-open-emacs-at-point)
+
+(global-set-key (kbd "C-c s") 'counsel-projectile-rg)
