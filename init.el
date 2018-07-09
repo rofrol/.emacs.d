@@ -736,3 +736,12 @@ With argument ARG, do this that many times."
 ;; https://emacs.stackexchange.com/questions/10955/customize-vc-mode-appearance-in-mode-line
 (setcdr (assq 'vc-mode mode-line-format)
         '((:eval (replace-regexp-in-string "^ Git.*$" " " vc-mode))))
+
+;; C-mouse1
+;; https://www.reddit.com/r/emacs/comments/22tync/is_it_possible_to_use_findfileatpoint_with/
+(push (cons 'text-mode
+            (lambda (name)
+              (let ((newname (expand-file-name name (projectile-project-root))))
+                (when (file-exists-p newname)
+                  newname))))
+      ffap-alist)
