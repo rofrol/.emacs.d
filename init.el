@@ -778,3 +778,6 @@ return nil if path is a file"
 (global-set-key (kbd "C-c s") 'counsel-projectile-rg)
 
 ;;(setq-default mouse-wheel-flip-direction t)
+
+(use-package rust-mode
+  :straight t)
