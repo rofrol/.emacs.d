@@ -304,8 +304,20 @@ With argument ARG, do this that many times."
 
 (global-set-key [M-backspace] 'backward-delete-word)
 
-;; also http://ergoemacs.org/emacs/rename_file_pattern.html
-(global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
+
+(use-package crux
+  :straight t
+  :init (add-hook 'after-init-hook #'projectile-mode)
+  :config
+  ;; also http://ergoemacs.org/emacs/rename_file_pattern.html
+  ;; also http://rejeep.github.io/emacs/elisp/2010/03/11/duplicate-current-line-or-region-in-emacs.html
+  ;; also https://stackoverflow.com/questions/88399/how-do-i-duplicate-a-whole-line-in-emacs
+  ;; also https://www.emacswiki.org/emacs/DuplicateLines
+  ;; https://github.com/bbatsov/crux/blob/c79985f69b7cd96edb505199bd751f71ce6d4e58/crux.el#L330
+  ;; there is bug cannot be called repeatedly https://github.com/bbatsov/crux/issues/42 but I can run it repeatedly
+  (global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
+  (global-set-key (kbd "C-c d") 'crux-duplicate-current-line-or-region))
+
 
 ;; alternative https://github.com/bbatsov/super-save
 (save-place-mode 1)
