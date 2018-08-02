@@ -26,6 +26,20 @@
 (require 'rofrol-display)
 (require 'rofrol-utils)
 
+;; https://www.reddit.com/r/emacs/comments/29zm3q/how_to_get_rid_of_filename_files_that_emacs_is/
+(setq create-lockfiles nil)
+(define-coding-system-alias 'UTF-8 'utf-8)
+(set-language-environment 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-selection-coding-system 'utf-8)
+(set-locale-environment "en.UTF-8")
+(prefer-coding-system 'utf-8)
+;; https://rufflewind.com/2014-07-20/pasting-unicode-in-emacs-on-windows
+;; https://stackoverflow.com/questions/2901541/which-coding-system-should-i-use-in-emacs
+;; https://emacs.stackexchange.com/questions/22727/pasting-text-from-clipboard-why-m-instead-of-linebreaks
+(when (eq system-type 'windows-nt)
+  (set-selection-coding-system 'utf-16-le)) ;; to paste i.e. ' instead of \222
+
 (use-package validate
   :straight t
   :demand t)
