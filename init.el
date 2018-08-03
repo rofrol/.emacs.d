@@ -812,3 +812,6 @@ return nil if path is a file"
   :straight t
   :config
   (setq rust-format-on-save t))
+
+(use-package typescript-mode
+  :straight t)
