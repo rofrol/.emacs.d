@@ -77,6 +77,7 @@
 	(defun rofrol/elm-mode-generate-tags ()
 	  "Generate a TAGS file for the current project."
 	  (interactive)
+	  (message "Running rofrol/elm-mode-generate-tags")
 	  (when (and (rofrol/elm--has-dependency-file) (eq major-mode 'elm-mode))
 	    (let* ((default-directory (rofrol/elm--find-dependency-file-path))
 	          (ctags-command "rg --files -telm | ctags -e -L -"))
