@@ -502,7 +502,6 @@ With argument ARG, do this that many times."
              "*elm-make*"
              "*elm-test*"
 	     "*Disabled Command*"
-	     "*Occur"
 	     "*Annotate"
              (and (1+ nonl) " output*")      ; AUCTeX command output
              ))
@@ -516,8 +515,8 @@ With argument ARG, do this that many times."
    ;; later entry with more specific actions.
    ("." nil (reusable-frames . visible))))
 
-(validate-setq
- display-buffer-alist
+(add-to-list
+ 'display-buffer-alist
  `(
    ;; Put REPLs and error lists into the bottom side window
    (,(rx bos
