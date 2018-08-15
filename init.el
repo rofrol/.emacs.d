@@ -840,7 +840,15 @@ return nil if path is a file"
           '(lambda ()
              (switch-to-buffer-other-window "*Occur*")
 	     (occur-mode-clean-buffer)))
-	     ;; (next-error-follow-minor-mode)))
+;; disabling because very slow scrolling
+;; https://emacs.stackexchange.com/questions/7281/how-to-modify-face-for-a-specific-buffer
+;; https://stackoverflow.com/questions/25109011/how-to-speed-up-a-custom-mode-line-face-change-function-in-emacs
+;; (face-remap-add-relative 'match '(:background nil))))
+;; maybe more correct but still slow
+;; https://emacs.stackexchange.com/questions/35349/what-is-the-correct-way-to-unset-foreground-color
+;; (face-remap-add-relative 'match '(:background (face-background 'default)))))
+;; not needed
+;; (next-error-follow-minor-mode)))
 
 (defun elm-occur ()
  "Elm and occure searching for lines with definitions and annotations"
