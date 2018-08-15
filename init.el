@@ -821,8 +821,8 @@ return nil if path is a file"
 ;; https://emacs.stackexchange.com/questions/13212/how-to-make-occur-mode-select-the-window-of-buffer-occur
 (add-hook 'occur-hook
           '(lambda ()
-             (switch-to-buffer-other-window "*Occur*")
-	     (next-error-follow-minor-mode)))
+             (switch-to-buffer-other-window "*Occur*")))
+	     ;; (next-error-follow-minor-mode)))
 
 (defun elm-occur ()
  "Elm and occure searching for lines with definitions and annotations"
