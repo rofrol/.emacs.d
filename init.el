@@ -847,6 +847,18 @@ return nil if path is a file"
  (interactive)
  (occur "^[a-z].*\\(:.+$\\|=$\\)"))
 
+;; https://stackoverflow.com/questions/586735/how-can-i-check-if-a-current-buffer-exists-in-emacs/2050989#2050989
+(defun buffer-exists (bufname)   (not (eq nil (get-buffer bufname))))
+(defun elm-occur-or-kill-occur ()
+  (interactive)
+  (if (or (not (eq nil (get-buffer-window "*Occur*")))
+      (buffer-exists "*Occur*"))
+      (kill-buffer "*Occur*")
+      (elm-occur)
+    ))
+
+(global-set-key [f5] 'elm-occur-or-kill-occur)
+
 ;; https://www.emacswiki.org/emacs/OccurMode
 (defun occur-mode-clean-buffer ()
   "Removes all commentary from the *Occur* buffer, leaving the unadorned lines."
