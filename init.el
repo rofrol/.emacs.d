@@ -850,6 +850,16 @@ return nil if path is a file"
 ;; not needed
 ;; (next-error-follow-minor-mode)))
 
+;; https://emacs.stackexchange.com/questions/3630/can-occur-center-the-found-text-in-the-buffer
+;; (defun foo ()
+;;   (let ((line   (line-number-at-pos)))
+;;     (cond ((<= line (+ (line-number-at-pos (window-start)) 10))
+;;            (recenter 10))
+;;           ((>= line (- (line-number-at-pos (window-end)) 10))
+;;            (recenter -10)))))
+
+(add-hook 'occur-mode-find-occurrence-hook 'recenter)
+
 (defun elm-occur ()
  "Elm and occure searching for lines with definitions and annotations"
  (interactive)
