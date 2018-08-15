@@ -502,6 +502,8 @@ With argument ARG, do this that many times."
              "*elm-make*"
              "*elm-test*"
 	     "*Disabled Command*"
+	     "*Occur"
+	     "*Annotate"
              (and (1+ nonl) " output*")      ; AUCTeX command output
              ))
     (display-buffer-reuse-window
