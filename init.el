@@ -516,6 +516,23 @@ With argument ARG, do this that many times."
    ;; later entry with more specific actions.
    ("." nil (reusable-frames . visible))))
 
+(validate-setq
+ display-buffer-alist
+ `(
+   ;; Put REPLs and error lists into the bottom side window
+   (,(rx bos
+         (or "*Occur"
+             (and (1+ nonl) " output*")      ; AUCTeX command output
+             ))
+    (display-buffer-reuse-window
+     display-buffer-in-side-window)
+    (side            . right)
+    (reusable-frames . visible)
+    (window-height   . 0.33))
+   ;; Let `display-buffer' reuse visible frames for all buffers.  This must
+   ;; be the last entry in `display-buffer-alist', because it overrides any
+   ;; later entry with more specific actions.
+   ("." nil (reusable-frames . visible))))
 
 ;; https://github.com/yauhen-l/emacs-config/blob/de3d722e844138e6e2a5f8688a3bbb34427430e1/utils/buffer.el#L69
 ;; better than https://github.com/syl20bnr/spacemacs/issues/1424 because does not close main window
@@ -821,10 +838,29 @@ return nil if path is a file"
 ;; https://emacs.stackexchange.com/questions/13212/how-to-make-occur-mode-select-the-window-of-buffer-occur
 (add-hook 'occur-hook
           '(lambda ()
-             (switch-to-buffer-other-window "*Occur*")))
+             (switch-to-buffer-other-window "*Occur*")
+	     (occur-mode-clean-buffer)))
 	     ;; (next-error-follow-minor-mode)))
 
 (defun elm-occur ()
  "Elm and occure searching for lines with definitions and annotations"
  (interactive)
  (occur "^[a-z].*\\(:.+$\\|=$\\)"))
+
+;; https://www.emacswiki.org/emacs/OccurMode
+(defun occur-mode-clean-buffer ()
+  "Removes all commentary from the *Occur* buffer, leaving the unadorned lines."
+  (interactive)
+  (if (get-buffer "*Occur*")
+      (save-excursion
+        (set-buffer (get-buffer "*Occur*"))
+        (goto-char (point-min))
+        (toggle-read-only 0)
+        (if (looking-at "^[0-9]+ lines matching \"")
+            (kill-line 1))
+        (while (re-search-forward "^[ \t]*[0-9]+:"
+                                  (point-max)
+                                  t)
+          (replace-match "")
+          (forward-line 1)))
+    (message "There is no buffer named \"*Occur*\".")))
