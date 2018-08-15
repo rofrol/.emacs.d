@@ -60,7 +60,6 @@
     :mode ("\\.elm\\'" . elm-mode)
     :straight t
     :init
-    (progn
 	(defconst elm-package-json
 	  "elm-package.json"
 	  "The name of the package JSON configuration file.")
@@ -95,7 +94,7 @@
         (setq tags-revert-without-query 1)
         ;; (setq elm-tags-on-save t))
 
-	(add-hook 'elm-mode-hook 'init-elm-mode)))
+	(add-hook 'elm-mode-hook 'init-elm-mode))
 
 ;; not sure if I need this, when counsel-rg shows results live
 ;; and to have list in buffer and I can press `C-c C-o` which is `ivy-occur`
