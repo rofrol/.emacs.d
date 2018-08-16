@@ -91,10 +91,9 @@
           (if (fboundp 'electric-indent-local-mode)
               (electric-indent-local-mode -1))
           (add-to-list 'company-backends 'company-elm)
-          (setq elm-format-on-save t))
-
-        (setq tags-revert-without-query 1)
-        ;; (setq elm-tags-on-save t))
+          (setq elm-format-on-save t)
+          (setq tags-revert-without-query 1)
+          (setq elm-tags-on-save t))
 
 	(add-hook 'elm-mode-hook 'init-elm-mode))
 
@@ -139,7 +138,13 @@
                   (format " Projectile[%s]"
                           ;;(projectile-project-name))
                           (concat (projectile-project-name) "/"
-                              (f-dirname (f-relative buffer-file-name (projectile-project-root)))))
+				  (if (not buffer-file-name)
+				      ""
+				      (let (dir (f-dirname (f-relative buffer-file-name (projectile-project-root))))
+				        (if (not dir)
+					  ""
+				          dir)))
+                              ))
                 "")))
    )
 
@@ -151,8 +156,8 @@
 (defun my-projectile-switch-project-action ()
   (set-frame-parameter nil 'my-projectile-project-name projectile-project-name)
   (projectile-run-eshell)
-  ;; (projectile-find-file)
-  (ivy-switch-buffer))
+  (projectile-find-file))
+  ;; (ivy-switch-buffer))
 
 (setq projectile-switch-project-action 'my-projectile-switch-project-action)
 
