@@ -857,7 +857,8 @@ return nil if path is a file"
 (defun elm-occur ()
  "Elm and occure searching for lines with definitions and annotations"
  (interactive)
- (occur "^[a-z].*\\(:.+$\\|=$\\)"))
+ ;; (occur "^[a-z].*\\(:.+$\\|=$\\)"))
+ (occur "^[a-z].*=$"))
 
 ;; https://stackoverflow.com/questions/586735/how-can-i-check-if-a-current-buffer-exists-in-emacs/2050989#2050989
 (defun buffer-exists (bufname)   (not (eq nil (get-buffer bufname))))
