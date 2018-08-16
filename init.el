@@ -125,7 +125,7 @@
     (when (eq system-type 'windows-nt)
       (when (or (executable-find "rg") (executable-find "pt") (executable-find "ag"))
         (setq projectile-indexing-method 'alien)
-        (setq projectile-enable-caching nil))
+        (setq projectile-enable-caching t))
 
       ;; FIXME: too slow while getting submodule files on Windows
       (setq projectile-git-submodule-command ""))
@@ -222,6 +222,9 @@
      (getenv "PATH")
      ))
 
+;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+;; (global-set-key (kbd "C-r") 'isearch-backward-regexp)
+
 ;; needed for counsel-find-file to be active etc.
 ;; http://pragmaticemacs.com/emacs/counsel-yank-pop-with-a-tweak/OB
 (use-package counsel
@@ -242,16 +245,18 @@
   :straight t
   :delight
   :init
-      (ivy-mode 1)
+  (ivy-mode 1)
+  :bind
+  ("C-s" . swiper)
   :config
-      ;; show recently opened files when ivy-switch-buffer
+  ;; show recently opened files when ivy-switch-buffer
   (setq ivy-use-virtual-buffers t)
-      ;; https://emacs.stackexchange.com/questions/31947/distinguish-ido-ivys-virtual-buffers-with-equal-names-using-directory
-      (setq ivy-virtual-abbreviate 'full)
-      ;; there is also counsel-projectile
-      (setq projectile-completion-system 'ivy)
-      ;;
-      (setq ivy-count-format "%d/%d "))
+  ;; https://emacs.stackexchange.com/questions/31947/distinguish-ido-ivys-virtual-buffers-with-equal-names-using-directory
+  (setq ivy-virtual-abbreviate 'full)
+  ;; there is also counsel-projectile
+  (setq projectile-completion-system 'ivy)
+  ;;
+  (setq ivy-count-format "%d/%d "))
 
 ;; ;; https://github.com/seagle0128/.emacs.d/blob/f8f026da759f32e2d25bab9b2b4c02b73cbbf5ed/lisp/init-ivy.el#L149
 ;; ;; More friendly display transformer for Ivy
@@ -626,9 +631,6 @@ With argument ARG, do this that many times."
 
 (advice-add 'find-file :around #'find-file--line-number)
 
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-r") 'isearch-backward-regexp)
-
 
 (use-package editorconfig
   :straight t
@@ -845,6 +847,9 @@ return nil if path is a file"
 ;; maybe more correct but still slow
 ;; https://emacs.stackexchange.com/questions/35349/what-is-the-correct-way-to-unset-foreground-color
 ;; (face-remap-add-relative 'match '(:background (face-background 'default)))))
+;; https://stackoverflow.com/questions/15733873/customizing-highlighting-faces-in-emacs-only-change-the-background-color
+;; (set-face-attribute 'highlight nil :foreground 'unspecified)
+
 ;; not needed
 ;; (next-error-follow-minor-mode)))
 
