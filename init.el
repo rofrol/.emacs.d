@@ -514,24 +514,15 @@ With argument ARG, do this that many times."
     (side            . bottom)
     (reusable-frames . visible)
     (window-height   . 0.33))
-   ;; Let `display-buffer' reuse visible frames for all buffers.  This must
-   ;; be the last entry in `display-buffer-alist', because it overrides any
-   ;; later entry with more specific actions.
-   ("." nil (reusable-frames . visible))))
-
-(add-to-list
- 'display-buffer-alist
- `(
-   ;; Put REPLs and error lists into the bottom side window
-   (,(rx bos
-         (or "*Occur"
-             (and (1+ nonl) " output*")      ; AUCTeX command output
-             ))
-    (display-buffer-reuse-window
-     display-buffer-in-side-window)
-    (side            . right)
-    (reusable-frames . visible)
-    (window-height   . 0.33))
+    (,(rx bos
+          (or "*Occur"
+              (and (1+ nonl) " output*")      ; AUCTeX command output
+              ))
+     (display-buffer-reuse-window
+      display-buffer-in-side-window)
+     (side            . right)
+     (reusable-frames . visible)
+     (window-height   . 0.33))
    ;; Let `display-buffer' reuse visible frames for all buffers.  This must
    ;; be the last entry in `display-buffer-alist', because it overrides any
    ;; later entry with more specific actions.
@@ -912,4 +903,4 @@ return nil if path is a file"
          "2 sec" nil 'delete-windows-on
          (get-buffer-create "*elm-make*"))
         (message "No Compilation Errors!"))))
-(add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful-elm) 
+(add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful-elm)
