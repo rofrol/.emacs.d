@@ -912,3 +912,8 @@ return nil if path is a file"
       (bury-compile-buffer-if-successful "*elm-make*" "WARNING"))
 
 (add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful-elm)
+
+;; enable lexical-binding in scratch buffer on start up
+(add-hook 'lisp-interaction-mode-hook
+      (lambda ()
+         (setq lexical-binding t)))
