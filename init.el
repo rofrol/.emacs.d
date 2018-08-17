@@ -923,12 +923,12 @@ return nil if path is a file"
       (lambda ()
          (setq lexical-binding t)))
 
-
+;; Disabling because of error: Symbol's value as variable is void: rectangle-mark-mode-map
 ;; https://emacs.stackexchange.com/questions/39414/immediately-invoke-string-rectangle-upon-rectangle-mark-mode-selection/42597#42597
-(defun string-rectangle-with-initial (char)
-  (interactive (list last-input-event))
-  (push char unread-command-events)
-  (call-interactively 'string-rectangle))
+;; (defun string-rectangle-with-initial (char)
+;;   (interactive (list last-input-event))
+;;   (push char unread-command-events)
+;;   (call-interactively 'string-rectangle))
 
-(define-key rectangle-mark-mode-map
-  [remap self-insert-command] 'string-rectangle-with-initial)
+;; (define-key rectangle-mark-mode-map
+;;   [remap ] 'string-rectangle-with-initial)
