@@ -922,3 +922,13 @@ return nil if path is a file"
 (add-hook 'lisp-interaction-mode-hook
       (lambda ()
          (setq lexical-binding t)))
+
+
+;; https://emacs.stackexchange.com/questions/39414/immediately-invoke-string-rectangle-upon-rectangle-mark-mode-selection/42597#42597
+(defun string-rectangle-with-initial (char)
+  (interactive (list last-input-event))
+  (push char unread-command-events)
+  (call-interactively 'string-rectangle))
+
+(define-key rectangle-mark-mode-map
+  [remap self-insert-command] 'string-rectangle-with-initial)
