@@ -134,19 +134,13 @@
       ;; https://gist.github.com/hlissner/f80647f7a390bfe78a805a40b9c28e9b
       ;; https://emacs.stackexchange.com/questions/38759/projectile-buffer-names-with-project-relative-filenames
       (setq projectile-mode-line
-      '(:eval (if (projectile-project-p)
-                  (format " Projectile[%s]"
-                          ;;(projectile-project-name))
-                          (concat (projectile-project-name) "/"
-				  (if (not buffer-file-name)
-				      ""
-				      (let (dir (f-dirname (f-relative buffer-file-name (projectile-project-root))))
-				        (if (not dir)
-					  ""
-				          dir)))
-                              ))
-                "")))
-   )
+	    '(:eval (if (projectile-project-p)
+			(format " Projectile[%s]"
+				(concat (projectile-project-name) "/"
+					(if (eq nil buffer-file-name)
+					    ""
+					  (f-dirname (f-relative buffer-file-name (projectile-project-root))))))
+		      ""))))
 
 
 ;; https://emacs.stackexchange.com/questions/35432/how-to-set-projectile-project-name-as-frame-title
