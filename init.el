@@ -870,15 +870,17 @@ return nil if path is a file"
 
 ;; https://stackoverflow.com/questions/586735/how-can-i-check-if-a-current-buffer-exists-in-emacs/2050989#2050989
 (defun buffer-exists (bufname)   (not (eq nil (get-buffer bufname))))
-(defun elm-occur-or-kill-occur ()
+(defun elm-occur-toggle ()
   (interactive)
-  (if (or (not (eq nil (get-buffer-window "*Occur*")))
-      (buffer-exists "*Occur*"))
-      (kill-buffer "*Occur*")
+  (let ((buffers (seq-filter
+		  (lambda (window)
+		    (string-prefix-p "*Occur: " (buffer-name (window-buffer window)))) (window-list))))
+    (if (not (eq 0 (length buffers)))
+	(kill-buffer (window-buffer (car buffers)))
       (elm-occur)
-    ))
+      (occur-rename-buffer))))
 
-(global-set-key [f5] 'elm-occur-or-kill-occur)
+(global-set-key [f5] 'elm-occur-toggle)
 
 ;; https://www.emacswiki.org/emacs/OccurMode
 (defun occur-mode-clean-buffer ()
