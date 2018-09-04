@@ -162,7 +162,10 @@
           (if (projectile-project-p)
               (let ((project-name (projectile-project-name)))
                   (if (not (string= "-" project-name))
-                    (format " in [%s]" project-name)
+                    (format " in [%s]" (concat (project-name) "/"
+					(if (eq nil buffer-file-name)
+					    ""
+					  (f-dirname (f-relative buffer-file-name (projectile-project-root))))))
                     (format " in [%s]" (frame-parameter nil 'my-projectile-project-name))))
 	      ""))))
 
@@ -866,9 +869,9 @@ return nil if path is a file"
 (defun buffer-exists (bufname)   (not (eq nil (get-buffer bufname))))
 (defun elm-occur-toggle ()
   (interactive)
-  (let ((buffers (seq-filter
-		  (lambda (window)
-		    (string-prefix-p "*Occur: " (buffer-name (window-buffer window)))) (window-list))))
+  (let ((buffers (seq-filter (lambda (window)
+		       (string-prefix-p "*Occur: " (buffer-name (window-buffer window))))
+		  (window-list))))
     (if (not (eq 0 (length buffers)))
 	(kill-buffer (window-buffer (car buffers)))
       (elm-occur)
