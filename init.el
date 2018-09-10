@@ -252,6 +252,7 @@
   (ivy-mode 1)
   :bind
   ("C-s" . swiper)
+  ("C-x C-b" . ivy-switch-buffer)
   :config
   ;; show recently opened files when ivy-switch-buffer
   (setq ivy-use-virtual-buffers t)
@@ -931,3 +932,6 @@ return nil if path is a file"
 
 ;; (define-key rectangle-mark-mode-map
 ;;   [remap ] 'string-rectangle-with-initial)
+
+;; https://stackoverflow.com/questions/13965966/unset-key-binding-in-emacs
+(global-unset-key (kbd "C-v"))
