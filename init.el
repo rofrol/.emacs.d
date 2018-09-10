@@ -935,3 +935,6 @@ return nil if path is a file"
 
 ;; https://stackoverflow.com/questions/13965966/unset-key-binding-in-emacs
 (global-unset-key (kbd "C-v"))
+
+;; https://stackoverflow.com/questions/2627289/how-to-replace-a-region-in-emacs-with-yank-buffer-contents
+(delete-selection-mode 1)
