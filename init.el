@@ -938,3 +938,23 @@ return nil if path is a file"
 
 ;; https://stackoverflow.com/questions/2627289/how-to-replace-a-region-in-emacs-with-yank-buffer-contents
 (delete-selection-mode 1)
+
+;; https://www.reddit.com/r/emacs/comments/726p7i/evil_mode_and_use_package/dnh3338/
+;; https://github.com/raxod502/straight.el/issues/250
+;; https://www.linode.com/docs/tools-reference/tools/emacs-evil-mode/
+;; https://github.com/noctuid/evil-guide
+;; https://sam217pa.github.io/2016/09/02/how-to-build-your-own-spacemacs/
+;; https://www.emacswiki.org/emacs/Evil
+;; https://www.reddit.com/r/emacs/comments/2mcj85/switching_from_vim_should_i_use_emacs_evil_or/
+;; C-z -> evil-normal-mode
+(use-package evil
+  :straight t
+  :init ;; tweak evil's configuration before loading it
+  ;; (setq evil-search-module 'evil-search)
+  ;; (setq evil-ex-complete-emacs-commands nil)
+  ;; (setq evil-vsplit-window-right t)
+  ;; (setq evil-split-window-below t)
+  ;; (setq evil-shift-round nil)
+  ;; (setq evil-want-C-u-scroll t)
+  :config ;; tweak evil after loading it
+  (evil-mode))
