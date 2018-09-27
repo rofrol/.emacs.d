@@ -864,7 +864,7 @@ return nil if path is a file"
  (interactive)
  ;; (occur "^[a-z].*\\(:.+$\\|=$\\)"))
  ;; (occur "^[a-z].*=$"))
- (occur "^\\([a-z].*=$\\|type \\|port .*:\\| *-- BOOKMARK\\)"))
+ (occur "^\\([a-z].*=$\\|type \\| +[=|] [a-zA-Z]*\\|port .*:\\| *-- BOOKMARK\\)"))
 
 ;; https://stackoverflow.com/questions/586735/how-can-i-check-if-a-current-buffer-exists-in-emacs/2050989#2050989
 (defun buffer-exists (bufname)   (not (eq nil (get-buffer bufname))))
@@ -1031,3 +1031,11 @@ current buffer's, reload dir-locals."
                               (file-name-nondirectory (buffer-file-name))))
               (add-hook (make-variable-buffer-local 'after-save-hook)
                         'my-reload-dir-locals-for-all-buffer-in-this-directory))))
+
+(add-to-list 'Info-default-directory-list "/usr/share/info/")
+
+;; https://github.com/whatyouhide/emacs.d/blob/master/init.el
+;; (use-package sublime-themes
+;;   :straight t
+;;   :init (progn
+;; 	  (load-theme 'ritchie t)))
