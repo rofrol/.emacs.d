@@ -864,7 +864,7 @@ return nil if path is a file"
  (interactive)
  ;; (occur "^[a-z].*\\(:.+$\\|=$\\)"))
  ;; (occur "^[a-z].*=$"))
- (occur "^\\([a-z].*=$\\|type \\| +[=|] [a-zA-Z ().]*$\\|port .*:\\| *-- BOOKMARK\\|-- \\)"))
+ (occur "^\\([a-z].*=$\\|type \\| +[=|] [a-zA-Z ().]*$\\|port .*:\\| *-- BOOKMARK\\|-- \\|.*Debug\\.log\\)"))
 
 ;; https://stackoverflow.com/questions/586735/how-can-i-check-if-a-current-buffer-exists-in-emacs/2050989#2050989
 (defun buffer-exists (bufname)   (not (eq nil (get-buffer bufname))))
