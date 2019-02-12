@@ -6,6 +6,7 @@
 ;; https://www.emacswiki.org/emacs/Evil
 ;; https://www.reddit.com/r/emacs/comments/2mcj85/switching_from_vim_should_i_use_emacs_evil_or/
 ;; C-z -> evil-normal-mode
+;; Evil bindings for the parts of Emacs that Evil does not cover properly by default, such as help-mode, M-x calendar, Eshell and more https://github.com/emacs-evil/evil-collection
 (use-package evil
   :straight t
   :init ;; tweak evil's configuration before loading it
