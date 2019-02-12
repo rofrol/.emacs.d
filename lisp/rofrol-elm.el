@@ -60,4 +60,7 @@
 
 (global-set-key [f5] 'elm-occur-toggle)
 
+;; for elm-0.19
+(setq elm-package-json "elm.json")
+
 (provide 'rofrol-elm)
