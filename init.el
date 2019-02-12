@@ -18,22 +18,31 @@
 
 (straight-use-package 'use-package)
 
+;; require for validate-setq
+(use-package validate
+  :straight t
+  :demand t)
+
 (setq load-prefer-newer t)
 
 ;; Modularization based on
 ;; https://github.com/tonini/emacs.d
 ;; https://www.reddit.com/r/emacs/comments/3q50do/best_way_organization_config_files_in_the_emacs/
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(require 'rofrol-system)
-(require 'rofrol-display)
 (require 'rofrol-utils)
 (require 'rofrol-evil)
 (require 'rofrol-scroll)
-(provide 'rofrol-company)
+(require 'rofrol-company)
+(require 'rofrol-occur)
 (require 'rofrol-elm)
+(require 'rofrol-side-windows)
+(require 'rofrol-mouse)
 ;;(require 'rofrol-fullscreen)
 ;;(require 'rofrol-electric)
 ;;(require 'rofrol-treemacs)
 ;;(require 'rofrol-git-bash)
 ;;(require 'rofrol-projectile)
 ;;(require 'rofrol-rest)
+;;(require 'rofrol-xml-sgml)
+(require 'rofrol-system)
+(require 'rofrol-display)

@@ -1,7 +1,3 @@
-(use-package validate
-  :straight t
-  :demand t)
-
 (use-package f
   :straight t
   :demand t)
@@ -124,21 +120,6 @@
 ;;(advice-add 'projectile-switch-project-by-name :around #'amd/projectile-switch-project)
 
 
-
-;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Hyperlinking.html
-;; this is better than browse-url-at-mouse, because only hyperlinks can be clicked, not sth like some.text
-;; https://emacs.stackexchange.com/questions/30521/rendering-urls-as-clickable-links/30522#30522
-;; there is also goto-address-mode https://emacs.stackexchange.com/questions/27094/how-to-make-hyperlinks-clickable-in-markdown-mode/27100#27100
-;; which will make hyperlinks clickable
-;; which can be activated for certain modes `(add-hook 'mh-show-mode-hook 'goto-address)` or `M-x goto-address`
-(global-set-key [C-down-mouse-1] 'ffap-at-mouse)
-(define-key global-map (kbd "<C-mouse-1>") 'ignore)
-
-;; Ctrl click a link, also disables mouse-buffer-menu
-;; https://www.emacswiki.org/emacs/BrowseUrl
-;;(global-set-key [C-down-mouse-1] 'browse-url-at-mouse)
-
-
 ;; https://superuser.com/questions/521223/shift-click-to-extend-marked-region
 ;; also disables mouse-appearance-menu, but I get S-mouse-1 undefined, so ignoring it
 (define-key global-map (kbd "<S-down-mouse-1>") 'mouse-save-then-kill)
@@ -168,11 +149,6 @@
 
 (global-set-key (kbd "C-S-<down-mouse-1>") #'mouse-start-rectangle)
 
-;; show border around zero width space ​ https://news.ycombinator.com/item?id=16754256
-;; to insert: `C-x 8 RET` then search for ZERO WIDTH SPACE
-;; or `C-q 20013 RET'
-(update-glyphless-char-display 'glyphless-char-display-control '((format-control . empty-box) (no-font . hex-code)))
-
 ;; https://jblevins.org/projects/markdown-mode/
 ;; either `C-c C-x C-l` or `M-x markdown-toggle-url-hiding` or add `(markdown-toggle-url-hiding t)` to your markdown-mode-hook
 (use-package markdown-mode
@@ -192,13 +168,6 @@
   ;; http://www.bartuka.com/emacs/2018/02/02/bartuka's-emacs-config.html
   (add-hook 'prog-mode-hook 'goto-address-prog-mode))
 
-;; https://www.emacswiki.org/emacs/KillBufferUnconditionally
-;; https://stackoverflow.com/questions/6467002/how-to-kill-buffer-in-emacs-without-answering-confirmation
-;; https://superuser.com/questions/632750/how-can-i-eliminate-prompts-and-dialog-boxes-in-emacs-and-enable-auto-saving
-;; https://emacs.stackexchange.com/questions/3245/kill-buffer-prompt-with-option-to-diff-the-changes
-;; https://emacs.stackexchange.com/questions/3330/how-to-reopen-just-killed-buffer-like-c-s-t-in-firefox-browser
-(global-set-key (kbd "C-x k") 'kill-this-buffer)
-
 ;; looks like below is not needed, but in the link there is example to expand it to *scratch* etc.
 ;; http://amitp.blogspot.com/2007/03/emacs-dont-kill-unsaved-buffers.html
 ;;(defun ask-before-killing-buffer ()
@@ -214,68 +183,6 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file t)
 
-;; Configure `display-buffer' behaviour for some special buffers.
-;; https://github.com/lunaryorn/old-emacs-configuration/blob/master/init.el
-;; https://www.reddit.com/r/emacs/comments/7au3hj/how_do_you_manage_your_emacs_windows_and_stay_sane/dpgp0fm/
-;; https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Displaying-Buffers-in-Side-Windows.html#Displaying-Buffers-in-Side-Windows
-;; http://endlessparentheses.com/validate-el-schema-validation-for-emacs-lisp.html
-;; Also Emacs Winner-Mode https://youtu.be/T_voB16QxW0
-(validate-setq
- display-buffer-alist
- `(
-   ;; Put REPLs and error lists into the bottom side window
-   (,(rx bos
-         (or "*Help"                         ; Help buffers
-             "*Warning*"                     ; Emacs warnings
-             "*Warnings*"                    ; Emacs warnings
-	     "*Backtrace*"                   ; When on *scratch*
-             "*Apropos*"                     ; Apropos
-             "*Compile-Log*"                 ; Emacs byte compiler log
-             "*compilation"                  ; Compilation buffers
-             "*Flycheck errors*"             ; Flycheck error list
-             "*shell"                        ; Shell window
-             "*sbt"                          ; SBT REPL and compilation buffer
-             "*ensime-update*"               ; Server update from Ensime
-             "*SQL"                          ; SQL REPL
-             "*Cargo"                        ; Cargo process buffers
-             "*elm-make*"
-             "*elm-test*"
-	     "*Disabled Command*"
-	     "*Annotate"
-             (and (1+ nonl) " output*")      ; AUCTeX command output
-             ))
-    (display-buffer-reuse-window
-     display-buffer-in-side-window)
-    (side            . bottom)
-    (reusable-frames . visible)
-    (window-height   . 0.33))
-    (,(rx bos
-          (or "*Occur"
-              (and (1+ nonl) " output*")      ; AUCTeX command output
-              ))
-     (display-buffer-reuse-window
-      display-buffer-in-side-window)
-     (side            . right)
-     (reusable-frames . visible)
-     (window-height   . 0.33))
-   ;; Let `display-buffer' reuse visible frames for all buffers.  This must
-   ;; be the last entry in `display-buffer-alist', because it overrides any
-   ;; later entry with more specific actions.
-   ("." nil (reusable-frames . visible))))
-
-;; https://github.com/yauhen-l/emacs-config/blob/de3d722e844138e6e2a5f8688a3bbb34427430e1/utils/buffer.el#L69
-;; better than https://github.com/syl20bnr/spacemacs/issues/1424 because does not close main window
-(defun my/quit-bottom-side-windows ()
-  "Quit bottom side windows of the current frame."
-  (interactive)
-  (dolist (window (window-at-side-list nil 'bottom))
-    (when (eq (window-parameter window 'window-side) 'bottom)
-      (delete-window window))))
-
-;; conflicts with undo
-;;(advice-add 'keyboard-quit :before 'lunaryorn-quit-bottom-side-windows)
-(global-set-key (kbd "C-x g") 'my/quit-bottom-side-windows)
-
 
 ;; https://unix.stackexchange.com/questions/9740/is-there-a-convenient-general-way-to-grab-the-echoed-result-of-a-command-in-em/24287#24287
 ;; or just `C-x h` then `M-w`
@@ -283,9 +190,6 @@
 (defun c5-eval-to-kill-ring ()
   (interactive)
   (kill-new (with-output-to-string (princ (call-interactively 'eval-expression)))))
-
-(global-set-key (kbd "C-;") 'comment-line)
-
 
 ;; https://stackoverflow.com/questions/1072662/by-emacs-how-to-join-two-lines-into-one/17682863#17682863
 (defun join-lines (arg)
@@ -529,72 +433,6 @@ return nil if path is a file"
 (use-package typescript-mode
   :straight t)
 
-;; https://emacs.stackexchange.com/questions/13212/how-to-make-occur-mode-select-the-window-of-buffer-occur
-(add-hook 'occur-hook
-          '(lambda ()
-             (switch-to-buffer-other-window "*Occur*")
-	     (occur-mode-clean-buffer)))
-;; disabling because very slow scrolling
-;; https://emacs.stackexchange.com/questions/7281/how-to-modify-face-for-a-specific-buffer
-;; https://stackoverflow.com/questions/25109011/how-to-speed-up-a-custom-mode-line-face-change-function-in-emacs
-;; (face-remap-add-relative 'match '(:background nil))))
-;; maybe more correct but still slow
-;; https://emacs.stackexchange.com/questions/35349/what-is-the-correct-way-to-unset-foreground-color
-;; (face-remap-add-relative 'match '(:background (face-background 'default)))))
-;; https://stackoverflow.com/questions/15733873/customizing-highlighting-faces-in-emacs-only-change-the-background-color
-;; (set-face-attribute 'highlight nil :foreground 'unspecified)
-
-;; not needed
-;; (next-error-follow-minor-mode)))
-
-;; https://emacs.stackexchange.com/questions/3630/can-occur-center-the-found-text-in-the-buffer
-;; (defun foo ()
-;;   (let ((line   (line-number-at-pos)))
-;;     (cond ((<= line (+ (line-number-at-pos (window-start)) 10))
-;;            (recenter 10))
-;;           ((>= line (- (line-number-at-pos (window-end)) 10))
-;;            (recenter -10)))))
-
-(add-hook 'occur-mode-find-occurrence-hook 'recenter)
-
-(defun elm-occur ()
- "Elm and occure searching for lines with definitions and annotations"
- (interactive)
- ;; (occur "^[a-z].*\\(:.+$\\|=$\\)"))
- ;; (occur "^[a-z].*=$"))
- (occur "^\\([a-z].*=$\\|type \\| +[=|] [a-zA-Z ().]*$\\|port .*:\\| *-- BOOKMARK\\|-- \\|.*Debug\\.log\\)"))
-
-;; https://stackoverflow.com/questions/586735/how-can-i-check-if-a-current-buffer-exists-in-emacs/2050989#2050989
-(defun buffer-exists (bufname)   (not (eq nil (get-buffer bufname))))
-(defun elm-occur-toggle ()
-  (interactive)
-  (let ((buffers (seq-filter (lambda (window)
-		       (string-prefix-p "*Occur: " (buffer-name (window-buffer window))))
-		  (window-list))))
-    (if (not (eq 0 (length buffers)))
-	(kill-buffer (window-buffer (car buffers)))
-      (elm-occur)
-      (occur-rename-buffer))))
-
-(global-set-key [f5] 'elm-occur-toggle)
-
-;; https://www.emacswiki.org/emacs/OccurMode
-(defun occur-mode-clean-buffer ()
-  "Removes all commentary from the *Occur* buffer, leaving the unadorned lines."
-  (interactive)
-  (if (get-buffer "*Occur*")
-      (save-excursion
-        (set-buffer (get-buffer "*Occur*"))
-        (goto-char (point-min))
-        (toggle-read-only 0)
-        (if (looking-at "^[0-9]+ lines matching \"")
-            (kill-line 1))
-        (while (re-search-forward "^[ \t]*[0-9]+:"
-                                  (point-max)
-                                  t)
-          (replace-match "")
-          (forward-line 1)))
-    (message "There is no buffer named \"*Occur*\".")))
 
 
 ;; require library cl at compile time, to get the use of its macros (and not get any runtime load). That is where macro lexical-let is defined. https://emacs.stackexchange.com/questions/15189/alternative-to-lexical-let/15191#15191
@@ -615,51 +453,6 @@ return nil if path is a file"
       (bury-compile-buffer-if-successful "*elm-make*" "WARNING"))
 
 (add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful-elm)
-
-;; enable lexical-binding in scratch buffer on start up
-(add-hook 'lisp-interaction-mode-hook
-      (lambda ()
-         (setq lexical-binding t)))
-
-;; Disabling because of error: Symbol's value as variable is void: rectangle-mark-mode-map
-;; https://emacs.stackexchange.com/questions/39414/immediately-invoke-string-rectangle-upon-rectangle-mark-mode-selection/42597#42597
-;; (defun string-rectangle-with-initial (char)
-;;   (interactive (list last-input-event))
-;;   (push char unread-command-events)
-;;   (call-interactively 'string-rectangle))
-
-;; (define-key rectangle-mark-mode-map
-;;   [remap ] 'string-rectangle-with-initial)
-
-;; https://stackoverflow.com/questions/13965966/unset-key-binding-in-emacs
-(global-unset-key (kbd "C-v"))
-
-
-(use-package sgml-mode
-  :defer t
-  :bind (:map html-mode-map
-              ("C-," . sgml-tag)
-              ("C-." . sgml-close-tag)))
-
-;; https://emacs.stackexchange.com/questions/14197/how-to-prettify-format-an-xml-buffer/31218#31218
-;; (defun xml-pretty-print (beg end &optional arg)
-;;   "Reformat the region between BEG and END.
-;;     With optional ARG, also auto-fill."
-;;   (interactive "*r\nP")
-;;   (let ((fill (or (bound-and-true-p auto-fill-function) -1)))
-;;     (sgml-mode)
-;;     (when arg (auto-fill-mode))
-;;     (sgml-pretty-print beg end)
-;;     (nxml-mode)
-;;     (auto-fill-mode fill)))
-
-;; better then sgml-pretty-print
-;; https://stackoverflow.com/questions/12492/pretty-printing-xml-files-on-emacs/4280824#4280824
-;; https://stackoverflow.com/questions/25897380/pretty-print-xml-with-attribute-alignment/25897679#25897679
-(defun nxml-pretty-format ()
-    (interactive)
-    (save-excursion
-        (shell-command-on-region (point-min) (point-max) "xmllint --format --pretty 2 -" (buffer-name) t)))
 
 ;; https://emacs.stackexchange.com/questions/13080/reloading-directory-local-variables
 

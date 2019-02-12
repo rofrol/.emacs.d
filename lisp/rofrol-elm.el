@@ -40,4 +40,24 @@
 
 	(add-hook 'elm-mode-hook 'init-elm-mode))
 
+;; depends on rofrol-occur
+(defun elm-occur ()
+ "Elm and occure searching for lines with definitions and annotations"
+ (interactive)
+ ;; (occur "^[a-z].*\\(:.+$\\|=$\\)"))
+ ;; (occur "^[a-z].*=$"))
+ (occur "^\\([a-z].*=$\\|type \\| +[=|] [a-zA-Z ().]*$\\|port .*:\\| *-- BOOKMARK\\|-- \\|.*Debug\\.log\\)"))
+
+(defun elm-occur-toggle ()
+  (interactive)
+  (let ((buffers (seq-filter (lambda (window)
+		       (string-prefix-p "*Occur: " (buffer-name (window-buffer window))))
+		  (window-list))))
+    (if (not (eq 0 (length buffers)))
+	(kill-buffer (window-buffer (car buffers)))
+      (elm-occur)
+      (occur-rename-buffer))))
+
+(global-set-key [f5] 'elm-occur-toggle)
+
 (provide 'rofrol-elm)

@@ -113,5 +113,48 @@ With argument ARG, do this that many times."
 ;; https://www.emacswiki.org/emacs/CaseFoldSearch
 (setq-default case-fold-search nil)
 
+;; enable lexical-binding in scratch buffer on start up
+(add-hook 'lisp-interaction-mode-hook
+      (lambda ()
+         (setq lexical-binding t)))
+
+;; Disabling because of error: Symbol's value as variable is void: rectangle-mark-mode-map
+;; https://emacs.stackexchange.com/questions/39414/immediately-invoke-string-rectangle-upon-rectangle-mark-mode-selection/42597#42597
+;; (defun string-rectangle-with-initial (char)
+;;   (interactive (list last-input-event))
+;;   (push char unread-command-events)
+;;   (call-interactively 'string-rectangle))
+
+;; (define-key rectangle-mark-mode-map
+;;   [remap ] 'string-rectangle-with-initial)
+
+;; https://stackoverflow.com/questions/13965966/unset-key-binding-in-emacs
+(global-unset-key (kbd "C-v"))
+
+;; https://www.emacswiki.org/emacs/KillBufferUnconditionally
+;; https://stackoverflow.com/questions/6467002/how-to-kill-buffer-in-emacs-without-answering-confirmation
+;; https://superuser.com/questions/632750/how-can-i-eliminate-prompts-and-dialog-boxes-in-emacs-and-enable-auto-saving
+;; https://emacs.stackexchange.com/questions/3245/kill-buffer-prompt-with-option-to-diff-the-changes
+;; https://emacs.stackexchange.com/questions/3330/how-to-reopen-just-killed-buffer-like-c-s-t-in-firefox-browser
+(global-set-key (kbd "C-x k") 'kill-this-buffer)
+
+;; C-; does not work with evil
+;;(global-set-key (kbd "C-;") 'comment-line)
+(global-set-key (kbd "<f4>") 'comment-or-uncomment-region-or-line)
+
+;; does not move cursor to next line
+;; https://stackoverflow.com/questions/9688748/emacs-comment-uncomment-current-line/9697222#9697222
+(defun comment-or-uncomment-region-or-line ()
+    "Comments or uncomments the region or the current line if there's no active region."
+    (interactive)
+    (let (beg end move)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position) move t))
+        (comment-or-uncomment-region beg end)
+	;; I don't know why but this code prevents from unselecting after commenting region
+        (if (move)
+            ()
+            ())))
 
 (provide 'rofrol-system)

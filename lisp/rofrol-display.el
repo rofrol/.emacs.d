@@ -62,4 +62,9 @@
 (setq-default cursor-type '(bar . 2))
 ;; (setq-default cursor-type 'hollow)
 
+;; show border around zero width space ​ https://news.ycombinator.com/item?id=16754256
+;; to insert: `C-x 8 RET` then search for ZERO WIDTH SPACE
+;; or `C-q 20013 RET'
+(update-glyphless-char-display 'glyphless-char-display-control '((format-control . empty-box) (no-font . hex-code)))
+
 (provide 'rofrol-display)
