@@ -16,4 +16,7 @@
 ;; https://dwm.suckless.narkive.com/Vf392Hxa/dev-st-how-can-i-scroll-up-in-emacs
 (xterm-mouse-mode 1)
 
+;; https://emacs.stackexchange.com/questions/41441/can-scrolling-be-smoother-than-single-line-in-emacs-org-mode
+(pixel-scroll-mode 1)
+
 (provide 'rofrol-scroll)
