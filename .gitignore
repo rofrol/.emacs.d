@@ -1,6 +1,6 @@
-*
-.gitignore
-!init.el
-!lisp/
-!README.md
+straight
 !straight/versions/default.el
+*.eld
+.cache
+places
+auto-save-list
