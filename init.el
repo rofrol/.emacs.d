@@ -29,6 +29,7 @@
 (require 'rofrol-utils)
 (require 'rofrol-evil)
 (require 'rofrol-scroll)
+(provide 'rofrol-company)
 (require 'rofrol-elm)
 ;;(require 'rofrol-fullscreen)
 ;;(require 'rofrol-electric)
@@ -36,8 +37,3 @@
 ;;(require 'rofrol-git-bash)
 ;;(require 'rofrol-projectile)
 ;;(require 'rofrol-rest)
-
-(use-package company
-  :straight t
-  :config
-  (global-company-mode))
