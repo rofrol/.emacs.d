@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Configure `display-buffer' behaviour for some special buffers.
 ;; https://github.com/lunaryorn/old-emacs-configuration/blob/master/init.el
 ;; https://www.reddit.com/r/emacs/comments/7au3hj/how_do_you_manage_your_emacs_windows_and_stay_sane/dpgp0fm/

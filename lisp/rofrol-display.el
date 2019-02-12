@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Needs restart
 ;; https://stackoverflow.com/questions/28428382/how-to-manage-fonts-in-emacs
 ;; https://emacs.stackexchange.com/questions/2501/how-can-i-set-default-font-in-emacs

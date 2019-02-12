@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; https://emacs.stackexchange.com/questions/2999/how-to-maximize-my-emacs-frame-on-start-up/3017#3017
 ;; https://www.emacswiki.org/emacs/FullScreen
 ;; faster startup without resizing: emacs -fs

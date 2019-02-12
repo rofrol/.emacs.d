@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Hyperlinking.html
 ;; this is better than browse-url-at-mouse, because only hyperlinks can be clicked, not sth like some.text
 ;; https://emacs.stackexchange.com/questions/30521/rendering-urls-as-clickable-links/30522#30522

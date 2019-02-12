@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; https://emacs.stackexchange.com/questions/22049/git-bash-in-emacs-on-windows
 ;;(setq shell-file-name "C:\\Program Files\\Git\\bin\\bash.exe")
 ;;(setq explicit-shell-file-name shell-file-name)

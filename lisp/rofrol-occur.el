@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; https://emacs.stackexchange.com/questions/13212/how-to-make-occur-mode-select-the-window-of-buffer-occur
 (add-hook 'occur-hook
           '(lambda ()

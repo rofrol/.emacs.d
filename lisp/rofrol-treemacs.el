@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; https://stackoverflow.com/questions/3631220/fix-to-get-smooth-scrolling-in-emacs/27102429#27102429
 ;; scroll one line at a time (less "jumpy" than defaults)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ; one line at a time

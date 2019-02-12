@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; https://github.com/seagle0128/.emacs.d/blob/master/lisp/init-projectile.el
 ;; https://github.com/kaushalmodi/.emacs.d/blob/master/setup-files/setup-projectile.el
 ;; https://emacs.stackexchange.com/questions/16497/how-to-exclude-files-from-projectile/29200#29200

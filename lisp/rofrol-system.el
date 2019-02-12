@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Some general settings
 ;; https://www.littlehart.net/atthekeyboard/2017/05/26/letting-emacs-into-your-grumpy-heart/
 ;; You can disable backups, but that's a bad idea for obvious reasons https://superuser.com/questions/236883/why-does-emacs-create-a-file-that-starts-with

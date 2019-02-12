@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defun open-user-init-file ()
   (interactive)
   (find-file user-init-file))

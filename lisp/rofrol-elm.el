@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; required for company-elm
 (add-hook 'after-init-hook 'global-company-mode)
 

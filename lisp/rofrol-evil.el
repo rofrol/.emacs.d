@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; https://www.reddit.com/r/emacs/comments/726p7i/evil_mode_and_use_package/dnh3338/
 ;; https://github.com/raxod502/straight.el/issues/250
 ;; https://www.linode.com/docs/tools-reference/tools/emacs-evil-mode/

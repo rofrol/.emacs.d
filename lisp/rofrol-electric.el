@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; http://ergoemacs.org/emacs/emacs_insert_brackets_by_pair.html
 (electric-pair-mode t)
 

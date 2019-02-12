@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (use-package f
   :straight t
   :demand t)
@@ -432,8 +434,6 @@ return nil if path is a file"
 
 (use-package typescript-mode
   :straight t)
-
-(add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful-elm)
 
 ;; https://emacs.stackexchange.com/questions/13080/reloading-directory-local-variables
 
