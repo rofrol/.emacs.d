@@ -159,4 +159,9 @@ With argument ARG, do this that many times."
             ()
             ())))
 
+;; use SHIFT+arrow to move to the next adjacent window in the specified direction.
+;; https://stackoverflow.com/questions/16607791/emacs-move-around-split-windows-in-a-specified-direction/16610289#16610289
+;; https://stackoverflow.com/questions/33725550/emacs-evil-general-window-movement-remap
+(windmove-default-keybindings)
+
 (provide 'rofrol-system)
