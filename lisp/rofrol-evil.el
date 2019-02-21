@@ -29,8 +29,6 @@
  :after evil
  :commands evil-escape-mode
  :init
- (setq evil-escape-key-sequence "jk"
-       evil-escape-delay 0.25)
  (evil-escape-mode)
  :config
    (define-key evil-normal-state-map "\C-y" 'yank)
