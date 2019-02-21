@@ -69,4 +69,10 @@
 ;; or `C-q 20013 RET'
 (update-glyphless-char-display 'glyphless-char-display-control '((format-control . empty-box) (no-font . hex-code)))
 
+;; this visible bell appears only in gui
+;; https://emacs.stackexchange.com/questions/29768/how-to-stop-emacs-from-blinking
+;; https://www.emacswiki.org/emacs/AlarmBell
+(setq visible-bell       nil
+      ring-bell-function #'ignore)
+
 (provide 'rofrol-display)
