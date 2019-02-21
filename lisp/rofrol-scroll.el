@@ -22,4 +22,11 @@
 ;;;; https://emacs.stackexchange.com/questions/41441/can-scrolling-be-smoother-than-single-line-in-emacs-org-mode
 ;;(pixel-scroll-mode 1)
 
+;; Links
+;; - https://news.ycombinator.com/item?id=12830206
+;; - Emacs 26 pixel-scroll-mode + powerline = insane amount of GCs https://github.com/milkypostman/powerline/issues/158
+;; - https://www.reddit.com/r/emacs/comments/8sw3r0/finally_scrolling_over_large_images_with_pixel/
+;; - https://www.reddit.com/r/emacs/comments/9amof9/emacs_is_stuttering_on_scrolling/
+;; - https://www.reddit.com/r/emacs/comments/8rml8f/emacs_26_pixelscrollmode_gcs_like_theres_no/
+
 (provide 'rofrol-scroll)
