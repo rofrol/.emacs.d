@@ -1,7 +1,9 @@
 ;; -*- lexical-binding: t; -*-
 
+;; don't set your GC threshold so high, I advise against increasing it more than twice from the default.
+;; https://www.reddit.com/r/emacs/comments/8rml8f/emacs_26_pixelscrollmode_gcs_like_theres_no/e0t89tf/
 ;; https://github.com/lewang/flx
-(setq gc-cons-threshold 200000000)
+;;(setq gc-cons-threshold 200000000)
 
 
 (let ((bootstrap-file
@@ -18,7 +20,7 @@
 
 (straight-use-package 'use-package)
 
-;; require for validate-setq
+;; required for validate-setq
 (use-package validate
   :straight t
   :demand t)
