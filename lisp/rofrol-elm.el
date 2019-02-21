@@ -36,10 +36,10 @@
           (if (fboundp 'electric-indent-local-mode)
               (electric-indent-local-mode -1))
           (add-to-list 'company-backends 'company-elm)
-          (setq elm-format-on-save t)
           (setq tags-revert-without-query 1)
           (setq elm-tags-on-save t))
 
+	(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
 	(add-hook 'elm-mode-hook 'init-elm-mode))
 
 ;; depends on rofrol-occur
