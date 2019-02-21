@@ -75,4 +75,8 @@
 (setq visible-bell       nil
       ring-bell-function #'ignore)
 
+;; https://www.emacswiki.org/emacs/ShowParenMode
+(show-paren-mode 1)
+(setq show-paren-delay 0)
+
 (provide 'rofrol-display)
