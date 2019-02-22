@@ -20,6 +20,10 @@
   ;; (setq evil-want-C-u-scroll t)
   (setq evil-want-fine-undo t) 
   :config ;; tweak evil after loading it
+  ;; Deleting buffer without losing the split window
+  ;; https://implementations-list.ourproject.narkive.com/7gdihu4I/deleting-buffer-without-losing-the-split-window
+  ;; same as to https://github.com/qpkorr/vim-bufkill
+  (evil-ex-define-cmd "BD[elete]" 'kill-this-buffer)
   (evil-mode))
 
 ;; https://github.com/syl20bnr/spacemacs/issues/9330#issuecomment-319448299
