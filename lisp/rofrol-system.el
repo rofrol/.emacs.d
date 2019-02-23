@@ -153,6 +153,14 @@ With argument ARG, do this that many times."
         (if (region-active-p)
             (setq beg (region-beginning) end (region-end))
             (setq beg (line-beginning-position) end (line-end-position) move t))
+        (comment-or-uncomment-region beg end)))
+(defun comment-or-uncomment-region-or-line-without_deselect ()
+    "Comments or uncomments the region or the current line if there's no active region."
+    (interactive)
+    (let (beg end move)
+        (if (region-active-p)
+            (setq beg (region-beginning) end (region-end))
+            (setq beg (line-beginning-position) end (line-end-position) move t))
         (comment-or-uncomment-region beg end)
 	;; I don't know why but this code prevents from unselecting after commenting region
         (if (move)
