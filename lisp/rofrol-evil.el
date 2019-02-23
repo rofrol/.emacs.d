@@ -24,6 +24,7 @@
   ;; https://implementations-list.ourproject.narkive.com/7gdihu4I/deleting-buffer-without-losing-the-split-window
   ;; same as to https://github.com/qpkorr/vim-bufkill
   (evil-ex-define-cmd "BD[elete]" 'kill-this-buffer)
+  (define-key evil-normal-state-map "\gc" 'comment-or-uncomment-region-or-line)
   (evil-mode))
 
 ;; https://github.com/syl20bnr/spacemacs/issues/9330#issuecomment-319448299
