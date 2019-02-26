@@ -4,6 +4,13 @@
 (add-hook 'after-init-hook 'global-company-mode)
 
 (use-package elm-mode
+    ;; elm-compile-add-annotations is the function to be fixed for this.
+    ;; in fact the issue here is that the new `elm make` does not support the `--warn` flag,
+    ;; and this is what elm-mode was using previously in order to have `elm make` print out
+    ;; the missing annotation so it could be inserted. Without support for that,
+    ;; there's no obvious alternative route to providing this functionality.
+    ;; https://github.com/jcollard/elm-mode/issues/152#issuecomment-450596903
+    
     :mode ("\\.elm\\'" . elm-mode)
     :straight t
     :init
