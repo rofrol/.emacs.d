@@ -39,6 +39,7 @@
 (require 'rofrol-company)
 (require 'rofrol-occur)
 (require 'rofrol-elm)
+(require 'rofrol-rust)
 (require 'rofrol-side-windows)
 (require 'rofrol-mouse)
 (require 'rofrol-compile)

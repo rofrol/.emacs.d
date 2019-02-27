@@ -427,11 +427,6 @@ return nil if path is a file"
 
 ;;(setq-default mouse-wheel-flip-direction t)
 
-(use-package rust-mode
-  :straight t
-  :config
-  (setq rust-format-on-save t))
-
 (use-package typescript-mode
   :straight t)
 
