@@ -172,4 +172,54 @@ With argument ARG, do this that many times."
 ;; https://stackoverflow.com/questions/33725550/emacs-evil-general-window-movement-remap
 (windmove-default-keybindings)
 
+;; copy to system clipboard, paste from system clipboard when emacs run in nowindow mode
+;; Based on
+;; - https://stackoverflow.com/questions/21830813/how-to-kill-yank-code-between-emacs-buffers-using-screen/21833639#21833639
+;; >The clipboard itself is a feature of X11, so you will not be able to use it without having any X11 server instance running anywhere. More about that below.
+;; >
+;; >However, xclip/xsel don't have the X11 server as dependency, they only need some client libraries installed. You should install xsel though if you want to have as few packages as possible, as it has significantly less dependencies than xclip (compare the output of apt depends --recurse --important xsel and apt depends --recurse --important xclip).
+;; >- https://askubuntu.com/questions/1111646/alternative-to-xsel-or-xclip-without-x11-installed
+;; - https://stackoverflow.com/questions/4580835/emacs-copy-kill-ring-to-system-clipboard-in-nowindow-mode
+;; - https://stackoverflow.com/questions/64360/how-to-copy-text-from-emacs-to-another-application-on-linux/19625063#19625063
+;; - https://stackoverflow.com/questions/4580835/emacs-copy-kill-ring-to-system-clipboard-in-nowindow-mode/4581008
+;; - toggle clipboard https://emacs.stackexchange.com/questions/10900/copy-text-from-emacs-to-os-x-clipboard/33315#33315
+;; - https://www.emacswiki.org/emacs/Comments_on_CopyAndPaste
+;; - https://gist.github.com/pkkm/5522129
+;; - https://emacs.stackexchange.com/questions/10900/copy-text-from-emacs-to-os-x-clipboard/10963
+;; - https://groups.google.com/forum/#!topic/gnu.emacs.help/38WrcwhH81I
+;; - maybe slow on ssh https://stackoverflow.com/questions/27764059/emacs-terminal-mode-how-to-copy-and-paste-efficiently
+;; - alternative - allowWindowOps https://emacs.stackexchange.com/questions/22271/clipboard-manager-will-not-work-in-terminal-emacs
+;; - more sophisticated detecting if emacs in terminal https://emacs.stackexchange.com/questions/412/copy-and-paste-between-emacs-in-an-x-terminal-and-other-x-applications
+;; - check OS https://stackoverflow.com/questions/3216081/integrate-emacs-copy-paste-with-system-copy-paste
+;; - check OS https://emacs.stackexchange.com/questions/766/add-operating-system-clipboard-to-kill-ring
+;; - another alternative https://stackoverflow.com/questions/18387742/copy-paste-from-emacs-in-command-line/18387899#18387899
+;; - https://blog.d46.us/zsh-tmux-emacs-copy-paste/
+;; - https://www.reddit.com/r/emacs/comments/9qvssh/copy_text_from_emacs_to_other_programs/
+;; - https://github.com/rolandwalker/simpleclip
+;; - window-system - The value is nil if the selected frame is on a text-only-terminal.
+;; - unless - https://www.gnu.org/software/emacs/manual/html_node/elisp/Conditionals.html
+(unless window-system
+      (when (getenv "DISPLAY")
+        ;; Callback for when user cuts
+        (defun xsel-cut-function (text &optional push)
+          ;; Insert text to temp-buffer, and "send" content to xsel stdin
+          (with-temp-buffer
+            (insert text)
+            ;; I prefer using the "clipboard" selection (the one the
+            ;; typically is used by c-c/c-v) before the primary selection
+            ;; (that uses mouse-select/middle-button-click)
+            (call-process-region (point-min) (point-max) "xsel" nil 0 nil "--clipboard" "--input")))
+        ;; Call back for when user pastes
+        (defun xsel-paste-function()
+          ;; Find out what is current selection by xsel. If it is different
+          ;; from the top of the kill-ring (car kill-ring), then return
+          ;; it. Else, nil is returned, so whatever is in the top of the
+          ;; kill-ring will be used.
+          (let ((xsel-output (shell-command-to-string "xsel --clipboard --output")))
+            (unless (string= (car kill-ring) xsel-output)
+              xsel-output )))
+        ;; Attach callbacks to hooks
+        (setq interprogram-cut-function 'xsel-cut-function)
+        (setq interprogram-paste-function 'xsel-paste-function)))
+
 (provide 'rofrol-system)
