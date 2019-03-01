@@ -222,4 +222,7 @@ With argument ARG, do this that many times."
         (setq interprogram-cut-function 'xsel-cut-function)
         (setq interprogram-paste-function 'xsel-paste-function)))
 
+;; https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_your_dotemacs_that_you/czoqvgu/
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (provide 'rofrol-system)
