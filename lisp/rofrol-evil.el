@@ -19,6 +19,14 @@
   ;; (setq evil-shift-round nil)
   ;; (setq evil-want-C-u-scroll t)
   (setq evil-want-fine-undo t) 
+  ;; Do not replace kill ring with replaced text
+  ;; does not work
+  ;; - https://emacs.stackexchange.com/questions/14940/emacs-doesnt-paste-in-evils-visual-mode-with-every-os-clipboard/15054#15054
+  ;; - https://www.emacswiki.org/emacs/CopyAndPaste
+  ;;(fset 'evil-visual-update-x-selection 'ignore)
+  ;; does not work
+  ;; - https://emacs.stackexchange.com/questions/28135/in-evil-mode-how-can-i-prevent-adding-to-the-kill-ring-when-i-yank-text-visual/46485#46485
+  ;;(setq-default evil-kill-on-visual-paste nil)
   :config ;; tweak evil after loading it
   ;; Deleting buffer without losing the split window
   ;; https://implementations-list.ourproject.narkive.com/7gdihu4I/deleting-buffer-without-losing-the-split-window
