@@ -29,7 +29,8 @@
 (when (eq system-type 'windows-nt)
   (set-selection-coding-system 'utf-16-le)) ;; to paste i.e. ' instead of \222
 
-(setq confirm-kill-emacs 'y-or-n-p)
+;; not needed with evil
+;;(setq confirm-kill-emacs 'y-or-n-p)
 
 ;; No need as now C-g closes side window
 ;; auto-switch to help buffer, then press q to close
@@ -83,7 +84,7 @@ With argument ARG, do this that many times."
   (ad-set-arg 0 t))
 (ad-activate 'quit-window)
 
-;;(defun quit-window--kill (&optional ARG PRED) 
+;;(defun quit-window--kill (&optional ARG PRED)
 ;;  "Kill window when quit-window"
 ;;  (ad-set-arg 0 t))
 ;;
