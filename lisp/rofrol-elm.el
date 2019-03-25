@@ -47,7 +47,11 @@
           (setq elm-tags-on-save t))
 
 	(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
-	(add-hook 'elm-mode-hook 'init-elm-mode))
+	(add-hook 'elm-mode-hook 'init-elm-mode)
+    :bind
+	("<f5>" . elm-occur-toggle)
+	("<f9>" . elm-beginning-of-defun)
+	("<f10>" . elm-end-of-defun))
 
 ;; needs to be at top-level https://github.com/jcollard/elm-mode/issues/129#issuecomment-346974494
 (with-eval-after-load 'elm-mode
@@ -71,12 +75,7 @@
       (elm-occur)
       (occur-rename-buffer))))
 
-(global-set-key [f5] 'elm-occur-toggle)
-
 ;; for elm-0.19
 (setq elm-package-json "elm.json")
-
-(global-set-key (kbd "<f9>") 'elm-beginning-of-defun)
-(global-set-key (kbd "<f10>") 'elm-end-of-defun)
 
 (provide 'rofrol-elm)
