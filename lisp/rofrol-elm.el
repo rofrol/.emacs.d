@@ -76,4 +76,7 @@
 ;; for elm-0.19
 (setq elm-package-json "elm.json")
 
+(global-set-key (kbd "<f9>") 'elm-beginning-of-defun)
+(global-set-key (kbd "<f10>") 'elm-end-of-defun)
+
 (provide 'rofrol-elm)

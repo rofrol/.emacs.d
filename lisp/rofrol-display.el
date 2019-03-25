@@ -54,9 +54,6 @@
 ;;  (interactive)
 ;;  (tool-bar-mode (menu-bar-mode)))
 ;;(global-set-key (kbd "<f5>") 'toggle-menu-toolbar-modes)
-(global-set-key (kbd "<f6>") 'toggle-menu-bar-mode-from-frame)
-(global-set-key (kbd "<f7>") 'toggle-tool-bar-mode-from-frame)
-
 
 ;; https://emacs.stackexchange.com/questions/392/how-to-change-the-cursor-type-and-color
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Cursor-Display.html

@@ -64,6 +64,7 @@ With argument ARG, do this that many times."
   ;; also https://www.emacswiki.org/emacs/DuplicateLines
   ;; https://github.com/bbatsov/crux/blob/c79985f69b7cd96edb505199bd751f71ce6d4e58/crux.el#L330
   ;; there is bug cannot be called repeatedly https://github.com/bbatsov/crux/issues/42 but I can run it repeatedly
+  ;; https://unix.stackexchange.com/questions/7280/in-gnu-emacs-how-do-i-set-up-a-global-key-to-toggle-the-menu-bar/7291#7291
   (global-set-key (kbd "C-c r") 'crux-rename-file-and-buffer)
   (global-set-key (kbd "C-c d") 'crux-duplicate-current-line-or-region))
 
@@ -225,5 +226,15 @@ With argument ARG, do this that many times."
 
 ;; https://www.reddit.com/r/emacs/comments/445w6s/whats_some_small_thing_in_your_dotemacs_that_you/czoqvgu/
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(defun xah-pop-local-mark-ring ()
+  "Move cursor to last mark position of current buffer.
+Call this repeatedly will cycle all positions in `mark-ring'.
+URL `http://ergoemacs.org/emacs/emacs_jump_to_previous_position.html'
+Version 2016-04-04"
+  (interactive)
+  (set-mark-command t))
+
+(global-set-key (kbd "<f8>") 'xah-pop-local-mark-ring)
 
 (provide 'rofrol-system)
