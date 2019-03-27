@@ -63,7 +63,7 @@
  (interactive)
  ;; (occur "^[a-z].*\\(:.+$\\|=$\\)"))
  ;; (occur "^[a-z].*=$"))
- (occur "^\\([a-z].*=$\\|[a-z]+ :\\|type \\| +[=|] [a-zA-Z ().]*$\\|port .*:\\| *-- BOOKMARK\\|-- \\|.*Debug\\.log\\)"))
+ (occur "^\\([a-z].*=$\\|[a-z]+ :\\|type \\| +[=|] [a-zA-Z ().]*$\\|port .*:\\| +case .* of$\\| +\\(case\\|of\\)$\\| +[a-zA-Z0-9 ,_(){}]+ ->$\\| *-- BOOKMARK\\|-- \\|.*Debug\\.log\\)"))
 
 (defun elm-occur-toggle ()
   (interactive)
