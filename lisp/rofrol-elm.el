@@ -63,7 +63,9 @@
  (interactive)
  ;; (occur "^[a-z].*\\(:.+$\\|=$\\)"))
  ;; (occur "^[a-z].*=$"))
- (occur "^\\([a-z].*=$\\|[a-z]+ :\\|type \\| +[=|] [a-zA-Z ().]*$\\|port .*:\\| +case .* of$\\| +\\(case\\|of\\)$\\| +[a-zA-Z0-9 ,_(){}]+ ->$\\| *-- BOOKMARK\\|-- \\|.*Debug\\.log\\)"))
+ ;; non-gready +? https://stackoverflow.com/questions/2217928/how-do-i-write-a-regular-expression-that-excludes-rather-than-matches-e-g-not/15714513#15714513
+ ;; match new line https://stackoverflow.com/questions/1309050/emacs-query-replace-regexp-multiline/1309092#1309092
+ (occur "^\\([a-z].*=$\\|[a-z]+ :\\|type \\| +[=|] [a-zA-Z ().]*$\\|port .*:\\| +case .* of$\\| +case\n\\(.*\n\\)+? +of$\\| +[a-zA-Z0-9 ,_(){}]+ ->$\\| *-- BOOKMARK\\|-- \\|.*Debug\\.log\\)"))
 
 (defun elm-occur-toggle ()
   (interactive)
