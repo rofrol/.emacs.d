@@ -4,3 +4,4 @@ straight
 .cache
 places
 auto-save-list
+session.*
