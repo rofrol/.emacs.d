@@ -237,4 +237,16 @@ Version 2016-04-04"
 
 (global-set-key (kbd "<f8>") 'xah-pop-local-mark-ring)
 
+;; disabling bc of https://github.com/technomancy/find-file-in-project
+;; https://stackoverflow.com/questions/354490/preventing-automatic-change-of-default-directory/354654#354654
+;;(add-hook 'find-file-hook
+;;          (lambda ()
+;;            (setq default-directory command-line-default-directory)))
+;;	    ;; does not work
+;;            ;;(setq default-directory (vc-root-dir))))
+
+(use-package find-file-in-project
+  :straight t)
+
+
 (provide 'rofrol-system)
