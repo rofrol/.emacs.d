@@ -10,7 +10,6 @@
     ;; the missing annotation so it could be inserted. Without support for that,
     ;; there's no obvious alternative route to providing this functionality.
     ;; https://github.com/jcollard/elm-mode/issues/152#issuecomment-450596903
-    ;; [Corrupted file. Last good is 57104f0d7e98bfa6aeaec5854d933291d19aedb4 · Issue #156 · jcollard/elm-mode](https://github.com/jcollard/elm-mode/issues/156)
 
     :mode ("\\.elm\\'" . elm-mode)
     :straight t
@@ -47,8 +46,7 @@
           (setq tags-revert-without-query 1)
           (setq elm-tags-on-save t))
 
-	;;(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
-	(add-hook 'before-save-hook #'elm-mode-format-buffer)
+	(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
 	(add-hook 'elm-mode-hook 'init-elm-mode)
     :bind
 	("<f5>" . elm-occur-toggle)
