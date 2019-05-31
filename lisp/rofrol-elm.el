@@ -14,48 +14,52 @@
     :mode ("\\.elm\\'" . elm-mode)
     :straight t
     :init
-	(defconst elm-package-json
-	  "elm-package.json"
-	  "The name of the package JSON configuration file.")
 
-	(defun rofrol/elm--find-dependency-file-path ()
-	  "Recursively search for a directory containing a package JSON file."
-	  (or (locate-dominating-file default-directory elm-package-json)
-	      (file-name-as-directory (f-dirname (buffer-file-name)))))
+    ;; for elm-0.19
+    (setq elm-package-json "elm.json")
 
-	(defun rofrol/elm--has-dependency-file ()
-	  "Check if a dependency file exists."
-	  (f-exists? (f-join (rofrol/elm--find-dependency-file-path) elm-package-json)))
+    ;;For Windows https://github.com/jcollard/elm-mode/issues/135
+    ;;on Linux `setq elm-tags-on-save t` should be sufficient.
+    ;;I should test it
 
-	(defun rofrol/elm-mode-generate-tags ()
-	  "Generate a TAGS file for the current project."
-	  (interactive)
-	  (message "Running rofrol/elm-mode-generate-tags")
-	  (when (and (rofrol/elm--has-dependency-file) (eq major-mode 'elm-mode))
-	    (let* ((default-directory (rofrol/elm--find-dependency-file-path))
-	          (ctags-command "rg --files -telm | ctags -e -L -"))
-	          (call-process-shell-command (concat ctags-command "&") nil 0))))
+    (defun rofrol/elm--find-dependency-file-path ()
+      "Recursively search for a directory containing a package JSON file."
+      (or (locate-dominating-file default-directory elm-package-json)
+	  (file-name-as-directory (f-dirname (buffer-file-name)))))
 
-	(add-hook 'after-save-hook 'rofrol/elm-mode-generate-tags nil 'make-it-local)
+    (defun rofrol/elm--has-dependency-file ()
+      "Check if a dependency file exists."
+      (f-exists? (f-join (rofrol/elm--find-dependency-file-path) elm-package-json)))
 
-	(defun init-elm-mode ()
-          "Disable electric-indent-mode and let indentation cycling feature work"
-          (if (fboundp 'electric-indent-local-mode)
-              (electric-indent-local-mode -1))
-          (add-to-list 'company-backends 'company-elm)
-          (setq tags-revert-without-query 1)
-          (setq elm-tags-on-save t))
+    (defun rofrol/elm-mode-generate-tags ()
+      "Generate a TAGS file for the current project."
+      (interactive)
+      (message "Running rofrol/elm-mode-generate-tags")
+      (when (rofrol/elm--has-dependency-file)
+	(let* ((default-directory (rofrol/elm--find-dependency-file-path))
+	       (ctags-command "rg --files -telm | ctags -e -L -"))
+	  (call-process-shell-command (concat ctags-command "&") nil 0))))
 
-	(add-hook 'elm-mode-hook 'elm-format-on-save-mode)
-	(add-hook 'elm-mode-hook 'init-elm-mode)
+    (defun init-elm-mode ()
+      "Disable electric-indent-mode and let indentation cycling feature work"
+      (if (fboundp 'electric-indent-local-mode)
+	  (electric-indent-local-mode -1))
+      (add-to-list 'company-backends 'company-elm)
+      (setq tags-revert-without-query 1)
+      (elm-format-on-save-mode)
+      ;;(setq elm-tags-on-save t))
+      (add-hook 'after-save-hook 'rofrol/elm-mode-generate-tags))
+
+    (add-hook 'elm-mode-hook 'init-elm-mode)
+
+    ;; needs to be at top-level https://github.com/jcollard/elm-mode/issues/129#issuecomment-346974494
+    (with-eval-after-load 'elm-mode
+      (remove-hook 'elm-mode-hook 'elm-indent-mode))
+
     :bind
 	("<f5>" . elm-occur-toggle)
 	("<f9>" . elm-beginning-of-defun)
 	("<f10>" . elm-end-of-defun))
-
-;; needs to be at top-level https://github.com/jcollard/elm-mode/issues/129#issuecomment-346974494
-(with-eval-after-load 'elm-mode
-  (remove-hook 'elm-mode-hook 'elm-indent-mode))
 
 ;; depends on rofrol-occur
 (defun elm-occur ()
@@ -76,8 +80,5 @@
 	(kill-buffer (window-buffer (car buffers)))
       (elm-occur)
       (occur-rename-buffer))))
-
-;; for elm-0.19
-(setq elm-package-json "elm.json")
 
 (provide 'rofrol-elm)
