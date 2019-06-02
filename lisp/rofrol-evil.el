@@ -35,8 +35,11 @@
   ;; https://implementations-list.ourproject.narkive.com/7gdihu4I/deleting-buffer-without-losing-the-split-window
   ;; same as to https://github.com/qpkorr/vim-bufkill
   (evil-ex-define-cmd "BD[elete]" 'kill-this-buffer)
+
   ;; need to press enter before typing to live search https://github.com/technomancy/find-file-in-project/issues/116
-  (evil-ex-define-cmd "vs" 'ffip-split-window-horizontally)
+  ;;(evil-ex-define-cmd "vs" 'ffip-split-window-horizontally)
+  (define-key evil-normal-state-map "\C-p" 'ffip-split-window-horizontally)
+
   (define-key evil-normal-state-map "\gc" 'comment-or-uncomment-region-or-line)
   (evil-mode))
 

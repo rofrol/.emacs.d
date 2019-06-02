@@ -246,7 +246,10 @@ Version 2016-04-04"
 ;;            ;;(setq default-directory (vc-root-dir))))
 
 (use-package find-file-in-project
-  :straight t)
-
+  :straight t
+  :config
+  (setq ffip-use-rust-fd t)
+  (setq ffip-match-path-instead-of-filename t)
+  (setq ffip-split-window-without-asking-for-keyword t))
 
 (provide 'rofrol-system)
