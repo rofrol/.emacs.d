@@ -169,10 +169,36 @@ With argument ARG, do this that many times."
             ()
             ())))
 
-;; use SHIFT+arrow to move to the next adjacent window in the specified direction.
-;; https://stackoverflow.com/questions/16607791/emacs-move-around-split-windows-in-a-specified-direction/16610289#16610289
-;; https://stackoverflow.com/questions/33725550/emacs-evil-general-window-movement-remap
-(windmove-default-keybindings)
+;; ----------------------------------------------------------
+;; tmux
+;; ----------------------------------------------------------
+;; https://blog.kdheepak.com/emacsclient-and-tmux-split-navigation.html
+;; similar but could not install https://github.com/keith/evil-tmux-navigator
+;; Try to move direction, which is supplied as arg
+;; If cannot move that direction, send a tmux command to do appropriate move
+(defun windmove-emacs-or-tmux(dir tmux-cmd)
+  (interactive)
+  (if (ignore-errors (funcall (intern (concat "windmove-" dir))))
+      nil                       ;; Moving within emacs
+    (shell-command tmux-cmd)) ;; At edges, send command to tmux
+  )
+
+;Move between windows with custom keybindings
+(global-set-key (kbd "C-k")
+		'(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
+(global-set-key (kbd "C-j")
+		'(lambda () (interactive) (windmove-emacs-or-tmux "down"  "tmux select-pane -D")))
+(global-set-key (kbd "C-l")
+		'(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
+(global-set-key (kbd "C-h")
+		'(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
+;; in .tmux.conf:
+;;bind -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys C-h) || tmux select-pane -L"
+;;bind -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys C-j) || tmux select-pane -D"
+;;bind -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys C-k) || tmux select-pane -U"
+;;bind -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys C-l) || tmux select-pane -R"
+;;bind -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys 'C-\\') || tmux select-pane -l"
+
 
 ;; copy to system clipboard, paste from system clipboard when emacs run in nowindow mode
 ;; Based on
@@ -251,5 +277,6 @@ Version 2016-04-04"
   (setq ffip-use-rust-fd t)
   (setq ffip-match-path-instead-of-filename t)
   (setq ffip-split-window-without-asking-for-keyword t))
+
 
 (provide 'rofrol-system)
