@@ -172,6 +172,8 @@ With argument ARG, do this that many times."
 ;; ----------------------------------------------------------
 ;; tmux
 ;; ----------------------------------------------------------
+;; TODO: Use perfromant version:
+;; Well, the point of this question was how to use meta/control/shift-arrow for these commands, rather than redefine them to something else. I'll also add that I have a more involved version of this linked tmux pane <--> emacs window movement. The problem I find is (1) if something slow is happening in emacs, then while I can move to another tmux window, emacs is tied up processing so I remain frozen in the emacs pane. (2) It doesn't work if I sudo emacs. I'll add (3) that I do get confused if I'm in emacs or tmux and swap the commands by mistake. https://stackoverflow.com/questions/34084245/tmux-interfering-with-emacs-commands-windmove-default-keybindings/56445138?noredirect=1#comment99488129_56445138
 ;; https://blog.kdheepak.com/emacsclient-and-tmux-split-navigation.html
 ;; similar but could not install https://github.com/keith/evil-tmux-navigator
 ;; Try to move direction, which is supplied as arg
