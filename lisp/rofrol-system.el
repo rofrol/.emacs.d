@@ -183,22 +183,16 @@ With argument ARG, do this that many times."
     (shell-command tmux-cmd)) ;; At edges, send command to tmux
   )
 
-;Move between windows with custom keybindings
+;; Move between windows with custom keybindings
+;; Use with ~/bin/tmux_navigate.sh in ~/.tmux.conf
 (global-set-key (kbd "<S-up>")
-		'(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
+		'(lambda () (interactive) (windmove-emacs-or-tmux "up"  "if [ $(tmux display-message -p '#{pane_at_top}') -ne 1 ]; then tmux select-pane -U; fi")))
 (global-set-key (kbd "<S-down>")
-		'(lambda () (interactive) (windmove-emacs-or-tmux "down"  "tmux select-pane -D")))
+		'(lambda () (interactive) (windmove-emacs-or-tmux "down"  "if [ $(tmux display-message -p '#{pane_at_bottom}') -ne 1 ] ; then tmux select-pane -D; fi")))
 (global-set-key (kbd "<S-right>")
-		'(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
+		'(lambda () (interactive) (windmove-emacs-or-tmux "right" "if [ $(tmux display-message -p '#{pane_at_right}') -ne 1 ]; then tmux select-pane -R; fi")))
 (global-set-key (kbd "<S-left>")
-		'(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
-;; in .tmux.conf:
-;;bind -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys C-h) || tmux select-pane -L"
-;;bind -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys C-j) || tmux select-pane -D"
-;;bind -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys C-k) || tmux select-pane -U"
-;;bind -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys C-l) || tmux select-pane -R"
-;;bind -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys 'C-\\') || tmux select-pane -l"
-
+		'(lambda () (interactive) (windmove-emacs-or-tmux "left"  "if [ $(tmux display-message -p '#{pane_at_left}') -ne 1 ]; then tmux select-pane -L; fi")))
 
 ;; copy to system clipboard, paste from system clipboard when emacs run in nowindow mode
 ;; Based on
