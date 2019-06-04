@@ -184,13 +184,13 @@ With argument ARG, do this that many times."
   )
 
 ;Move between windows with custom keybindings
-(global-set-key (kbd "C-k")
+(global-set-key (kbd "<S-up>")
 		'(lambda () (interactive) (windmove-emacs-or-tmux "up"  "tmux select-pane -U")))
-(global-set-key (kbd "C-j")
+(global-set-key (kbd "<S-down>")
 		'(lambda () (interactive) (windmove-emacs-or-tmux "down"  "tmux select-pane -D")))
-(global-set-key (kbd "C-l")
+(global-set-key (kbd "<S-right>")
 		'(lambda () (interactive) (windmove-emacs-or-tmux "right" "tmux select-pane -R")))
-(global-set-key (kbd "C-h")
+(global-set-key (kbd "<S-left>")
 		'(lambda () (interactive) (windmove-emacs-or-tmux "left"  "tmux select-pane -L")))
 ;; in .tmux.conf:
 ;;bind -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -iqE '(^|\/)g?(view|emacs?)(diff)?$' && tmux send-keys C-h) || tmux select-pane -L"
