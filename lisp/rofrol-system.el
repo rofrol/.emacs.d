@@ -278,5 +278,15 @@ Version 2016-04-04"
   (setq ffip-match-path-instead-of-filename t)
   (setq ffip-split-window-without-asking-for-keyword t))
 
+(use-package zoom
+  :straight t
+  :init
+  (zoom-mode t)
+  :config
+  (defun size-callback ()
+    (cond ((> (frame-pixel-width) 1280) '(90 . 0.75))
+	  (t                            '(0.618 . 0.618))))
+  (setq zoom-size 'size-callback))
+
 
 (provide 'rofrol-system)
