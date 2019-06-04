@@ -38,6 +38,8 @@
 
   ;; need to press enter before typing to live search https://github.com/technomancy/find-file-in-project/issues/116
   ;;(evil-ex-define-cmd "vs" 'ffip-split-window-horizontally)
+  (evil-ex-define-cmd "vsf" 'ffip-split-window-horizontally)
+  (evil-ex-define-cmd "spf" 'ffip-split-window-vertically)
   (define-key evil-normal-state-map "\C-p" 'ffip-split-window-horizontally)
 
   (define-key evil-normal-state-map "\gc" 'comment-or-uncomment-region-or-line)
