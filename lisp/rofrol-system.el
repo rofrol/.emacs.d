@@ -280,8 +280,11 @@ Version 2016-04-04"
   (zoom-mode t)
   :config
   (defun size-callback ()
-    ;; https://stackoverflow.com/questions/5321097/what-does-the-dot-in-the-following-emacs-command-mean
-    ;; . or cons is :: in elm
+    ;; https://stackoverflow.com/questions/5321097/what-does-the-dot-in-the-following-emacs-command-mean/5321201#5321201
+    ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Dotted-Pair-Notation.html
+    ;; it is a dotted pair notation.
+    ;; first number is for width, second for height
+    ;; (0.618 . 0.618) is different than (0.618 0.618). In the second example, height is not balanced.
     (cond ((> (frame-pixel-width) 1280) '(90 . 0.75))
 	  (t                            '(0.618 . 0.618))))
   (setq zoom-size 'size-callback))
