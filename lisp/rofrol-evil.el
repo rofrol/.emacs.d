@@ -63,6 +63,8 @@
    (define-key evil-insert-state-map "\C-r" 'search-backward)
    (define-key evil-visual-state-map "\C-w" 'evil-delete)
    (define-key evil-normal-state-map "\M-." nil)
+   ;; I need this for Ubuntu WSL2
+   (define-key evil-insert-state-map "Escape" 'evil-escape)
 
    ;; When entering commands into the M-x minibuffer, to use Escape to cancel and get back to the main window.
    ;; https://jen20.com/2015/02/06/configuring-emacs-for-go-part-1.html
