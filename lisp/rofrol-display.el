@@ -11,7 +11,7 @@
 ;;(set-frame-font "Source Code Pro-13" nil t)
 (set-face-attribute 'default nil
                     :family "Source Code Pro"
-                    :height 130
+                    :height 110
                     :weight 'normal
                     :width 'normal)
 (copy-face 'default 'fixed-pitch)
