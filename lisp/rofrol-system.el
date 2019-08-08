@@ -285,9 +285,13 @@ Version 2016-04-04"
     ;; it is a dotted pair notation.
     ;; first number is for width, second for height
     ;; (0.618 . 0.618) is different than (0.618 0.618). In the second example, height is not balanced.
-    (cond ((> (frame-pixel-width) 1280) '(90 . 0.75))
-	  (t                            '(0.618 . 0.618))))
+    ;;(cond ((> (frame-pixel-width) 1280) '(90 . 0.75))
+    ;;	  (t                            '(0.618 . 0.618))))
+    (cond ((> (frame-pixel-width) 1280) '(0.618 . 0.618))
+	  (t                            '(0.8 . 0.8))))
   (setq zoom-size 'size-callback))
 
+;; https://stackoverflow.com/questions/20167246/emacs-open-buffer-in-vertical-split-by-default/20167940#20167940
+(split-window-right)
 
 (provide 'rofrol-system)
