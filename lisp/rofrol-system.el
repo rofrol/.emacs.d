@@ -292,6 +292,14 @@ Version 2016-04-04"
   (setq zoom-size 'size-callback))
 
 ;; https://stackoverflow.com/questions/20167246/emacs-open-buffer-in-vertical-split-by-default/20167940#20167940
-(split-window-right)
+;; this was splitting with scratch buffer in Ubuntu WSL2
+;;(split-window-right)
+;; this is splitting with the same file
+;;(add-hook 'emacs-startup-hook (lambda () (split-window-right) ))
+;; this works, change threshold to 0 if you always want to open vertically
+;; https://stackoverflow.com/questions/20167246/emacs-open-buffer-in-vertical-split-by-default/20167940#20167940
+;; https://stackoverflow.com/questions/20167246/emacs-open-buffer-in-vertical-split-by-default/20167940#20167940
+(setq split-height-threshold nil)
+(setq split-width-threshold 160)
 
 (provide 'rofrol-system)
