@@ -302,4 +302,25 @@ Version 2016-04-04"
 (setq split-height-threshold nil)
 (setq split-width-threshold 160)
 
+
+;; Paste and replace selection multiple times
+;; https://stackoverflow.com/questions/5823495/emacs-how-to-yank-the-last-yanked-text-regardless-of-subsequent-kills/5825012#5825012
+(defun rofrol/yank (&optional arg)
+  "Yank and save text to register Y"
+  (interactive)
+  (set-register ?Y (current-kill 0 t))
+  ;; needed for evil paste, otherwise was not deleting region
+  (if (and delete-selection-mode
+             (region-active-p))
+      (delete-region (region-beginning) (region-end)))
+  (yank arg))
+
+(global-set-key (kbd "C-y") (quote rofrol/yank))
+
+;; does not work
+;; https://stackoverflow.com/questions/5823495/emacs-how-to-yank-the-last-yanked-text-regardless-of-subsequent-kills/31867563#31867563
+
+;; does not work
+;; https://stackoverflow.com/questions/3786895/can-i-keep-the-same-item-for-yanks-in-emacs/3788250#3788250
+
 (provide 'rofrol-system)
