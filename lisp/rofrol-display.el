@@ -36,6 +36,12 @@
       ;; disabling bc text is selected when switching buffers with mouse
       ;; (add-hook 'buffer-list-update-hook 'nlinum-current-window))
 
+;; https://www.reddit.com/r/emacs/comments/6noyxa/customizing_the_new_native_line_numbers_in_emacs/dkb7wkr/
+(set-face-attribute 'line-number nil
+                    :foreground "gray")
+(set-face-attribute 'line-number-current-line nil
+                    :foreground "black")
+
 
 (defun nlinum-current-window ()
   (walk-windows (lambda (w)
