@@ -35,6 +35,7 @@
 (require 'rofrol-display)
 (require 'rofrol-utils)
 (require 'rofrol-evil)
+(require 'rofrol-evil-paste-keeps-copied-text)
 (require 'rofrol-scroll)
 (require 'rofrol-company)
 (require 'rofrol-occur)

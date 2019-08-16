@@ -56,7 +56,6 @@
  :config
    (setq-default evil-escape-delay 0)
 
-   (define-key evil-normal-state-map "p" 'rofrol/yank)
    (define-key evil-normal-state-map "\C-y" 'rofrol/yank)
    (define-key evil-insert-state-map "\C-y" 'rofrol/yank)
    (define-key evil-visual-state-map "\C-y" 'rofrol/yank)
