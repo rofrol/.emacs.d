@@ -33,6 +33,17 @@
         (display-line-numbers-mode)
     (setq display-line-numbers-width-start t))
       (add-hook 'prog-mode-hook 'init-line-numbers-mode))
+      ;; disabling bc text is selected when switching buffers with mouse
+      ;; (add-hook 'buffer-list-update-hook 'nlinum-current-window))
+
+
+(defun nlinum-current-window ()
+  (walk-windows (lambda (w)
+                  (unless (eq w (selected-window))
+                    (with-current-buffer (window-buffer w)
+                      (display-line-numbers-mode -1)))))
+  (display-line-numbers-mode))
+
 
 (column-number-mode t)
 
@@ -78,5 +89,9 @@
 
 (use-package theme-looper
   :straight t)
+
+;; Do not show dollar sign at the end of line when truncated
+;; https://stackoverflow.com/questions/8370778/remove-glyph-at-end-of-truncated-lines
+(set-display-table-slot standard-display-table 0 ?\ )
 
 (provide 'rofrol-display)
