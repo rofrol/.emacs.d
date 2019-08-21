@@ -1,5 +1,6 @@
 ;; https://github.com/subsid/emacs.d/blob/a3708034aed3f7ea54ac8b41782ca620cbfc44a2/config/evil-bypass-clipboard.el#L34
 ;; https://web.archive.org/web/20150313145313/http://www.codejury.com/bypassing-the-clipboard-in-emacs-evil-mode/
+;; https://www.reddit.com/r/emacs/comments/ct3ijt/solution_to_not_copy_replaced_text_when_pasting/
 
 (defmacro without-evil-mode (&rest do-this)
   ;; Check if evil-mode is on, and disable it temporarily
