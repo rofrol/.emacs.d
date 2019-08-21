@@ -59,7 +59,12 @@
 
 ;; change: text object
 (evil-define-operator evil-destroy-change (beg end type register yank-handler delete-func)
-  (evil-change beg end type ?_ yank-handler delete-func))
+  (progn
+    ;;(message "type: %s" type)
+  (evil-change beg
+    ;; need this, otherwise cw will delete space after word
+    (if (eq type 'exclusive) (- end 1) end)
+	        type ?_ yank-handler delete-func)))
 
 ;; paste: before
 (defun evil-destroy-paste-before ()
