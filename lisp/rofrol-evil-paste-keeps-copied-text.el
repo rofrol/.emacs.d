@@ -59,13 +59,19 @@
   (evil-delete-whole-line beg end type ?_ yank-handler))
 
 ;; change: text object
-(evil-define-operator evil-destroy-change (beg end type register yank-handler delete-func)
+(evil-define-operator evil-destroy-change2 (beg end type register yank-handler delete-func)
   (progn
     ;;(message "type: %s" type)
   (evil-change beg
     ;; need this, otherwise cw will delete space after word
     (if (eq type 'exclusive) (- end 1) end)
 	        type ?_ yank-handler delete-func)))
+
+(evil-define-operator evil-destroy-change (beg end type register yank-handler delete-func)
+  (evil-change beg end type ?_ yank-handler delete-func))
+
+;; https://www.reddit.com/r/emacs/comments/cu0o9j/help_evilchange_removes_one_character_more_than/
+(push #'evil-destroy-change evil-change-commands)
 
 ;; paste: before
 (defun evil-destroy-paste-before ()
