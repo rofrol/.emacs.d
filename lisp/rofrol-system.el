@@ -101,7 +101,6 @@ With argument ARG, do this that many times."
 ;; https://www.reddit.com/r/emacs/comments/4pxvhk/mj_to_ret_when_typing_a_comment/
 ;; (global-set-key (kbd "RET") (kbd "C-j"))
 
-
 ;; matching whitespace literally, toggle with `M-s SPC`
 ;; otherwise insert space literally `C-q SPC` or `M-x isearch-toggle-lax-whitespace`
 ;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Lax-Search.html#Lax-Search
@@ -111,11 +110,13 @@ With argument ARG, do this that many times."
 ;; https://emacs.stackexchange.com/questions/2819/match-two-spaces-with-incremental-search
 (set-variable 'search-whitespace-regexp nil)
 
+
+;; commenting out, because seach smart case `evil-ex-search-case' does not work in evil https://www.reddit.com/r/emacs/comments/d0e7ac/help_evil_search_always_sensitive_despite/ez9gjnd/
 ;; enable search case sensitivity
 ;; `M-c` to toogle, `C-s` then `M-e` to edit last search and `C-s`
 ;; https://stackoverflow.com/questions/22687635/emacs-24-3-case-sensitive-search-fails-with-c-s-c-s-search-again
 ;; https://www.emacswiki.org/emacs/CaseFoldSearch
-(setq-default case-fold-search nil)
+;;(setq-default case-fold-search nil)
 
 ;; enable lexical-binding in scratch buffer on start up
 (add-hook 'lisp-interaction-mode-hook
