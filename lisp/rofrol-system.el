@@ -305,4 +305,7 @@ Version 2016-04-04"
 (setq split-height-threshold nil)
 (setq split-width-threshold 160)
 
+;; (use-package w3m
+;;   :straight t)
+
 (provide 'rofrol-system)
