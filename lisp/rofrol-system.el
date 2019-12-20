@@ -308,4 +308,31 @@ Version 2016-04-04"
 ;; (use-package w3m
 ;;   :straight t)
 
+;; highlight only tabs
+;; https://stackoverflow.com/questions/22009725/how-to-higlight-tabs-in-emacs/22011036#22011036
+;; (setq whitespace-style '(face tabs))
+
+;; https://www.reddit.com/r/emacs/comments/33vah8/whitespace_mode/cqoufsz/
+
+(defun ws-tabs ()
+  (interactive)
+  (whitespace-mode -1)
+  (setq whitespace-style '(face tabs))
+  (whitespace-mode 1))
+
+
+(defun ws-junior ()
+  (interactive)
+  (whitespace-mode -1)
+  (setq whitespace-style '(face lines-tail))
+  (whitespace-mode 1))
+
+(defun ws-whopper ()
+  (interactive)
+  (whitespace-mode -1)
+  (setq whitespace-style '(face tabs spaces trailing lines space-before-tab
+				newline indentation empty space-after-tab space-mark tab-mark newline-mark))
+  (whitespace-mode 1))
+
+
 (provide 'rofrol-system)
