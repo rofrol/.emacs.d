@@ -46,6 +46,7 @@
 (require 'rofrol-dired)
 (require 'rofrol-evil)
 (require 'rofrol-evil-paste-keeps-copied-text)
+(require 'rofrol-js2-mode)
 ;;(require 'rofrol-fullscreen)
 ;;(require 'rofrol-electric)
 ;;(require 'rofrol-treemacs)
